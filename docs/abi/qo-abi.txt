@@ -1,0 +1,914 @@
+∀ (L M α : Real)
+  (hL : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) L)
+  (hM : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) M)
+  (hα : @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) α),
+  let δ : Real :=
+    @HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub)
+      (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+      (Real.logb
+        (@OfNat.ofNat.{0} Real (nat_lit 2)
+          (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+            (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+              (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0)))))))
+        (@Max.max.{0} Real Real.instMax
+          (@HDiv.hDiv.{0, 0, 0} Real Real Real (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+            (@OfNat.ofNat.{0} Real (nat_lit 3)
+              (@instOfNatAtLeastTwo.{0} Real (nat_lit 3) Real.instNatCast
+                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))))
+            (@OfNat.ofNat.{0} Real (nat_lit 2)
+              (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                  (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))))
+          (@Inv.inv.{0} Real Real.instInv
+            (@HAdd.hAdd.{0, 0, 0} Real Real Real (@instHAdd.{0} Real Real.instAdd)
+              (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))
+                (@OfNat.ofNat.{0} Real (nat_lit 2)
+                  (@instOfNatAtLeastTwo.{0} Real (nat_lit 2) Real.instNatCast
+                    (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))
+                      (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))))))))
+              (@HDiv.hDiv.{0, 0, 0} Real Real Real
+                (@instHDiv.{0} Real (@DivInvMonoid.toDiv.{0} Real Real.instDivInvMonoid))
+                (@HPow.hPow.{0, 0, 0} Real Nat Real
+                  (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) α
+                  (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))
+                (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                  (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                    (@OfNat.ofNat.{0} Real (nat_lit 64)
+                      (@instOfNatAtLeastTwo.{0} Real (nat_lit 64) Real.instNatCast
+                        (@Nat.instAtLeastTwoHAddOfNat (@OfNat.ofNat.{0} Nat (nat_lit 63) (instOfNatNat (nat_lit 63)))
+                          (@Nat.instNeZeroSucc (@OfNat.ofNat.{0} Nat (nat_lit 62) (instOfNatNat (nat_lit 62)))))))
+                    (@HPow.hPow.{0, 0, 0} Real Nat Real
+                      (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) L
+                      (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+                  (@HPow.hPow.{0, 0, 0} Real Nat Real
+                    (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid))) M
+                    (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4))))))))));
+  And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) δ)
+    (@Exists.{1} Real fun (C : Real) =>
+      And (@LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) C)
+        (∀ (U : Type u) (V : Type v) [inst : NormedAddCommGroup.{u} U]
+          [inst_1 :
+            @InnerProductSpace.{0, u} Real U Real.instRCLike (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)]
+          [@CompleteSpace.{u} U
+              (@PseudoMetricSpace.toUniformSpace.{u} U
+                (@SeminormedAddCommGroup.toPseudoMetricSpace.{u} U
+                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)))]
+          [inst_3 : NormedAddCommGroup.{v} V]
+          [inst_4 :
+            @InnerProductSpace.{0, v} Real V Real.instRCLike
+              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)]
+          [@CompleteSpace.{v} V
+              (@PseudoMetricSpace.toUniformSpace.{v} V
+                (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)))]
+          (A :
+            U →
+              @ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                (@UniformSpace.toTopologicalSpace.{v} V
+                  (@PseudoMetricSpace.toUniformSpace.{v} V
+                    (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3)) Real
+                (@UniformSpace.toTopologicalSpace.{0} Real
+                  (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                Real.instAddCommMonoid
+                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                (@Semiring.toModule.{0} Real Real.semiring))
+          (T : U → V)
+          (Uj :
+            Nat →
+              @Submodule.{0, u} Real U Real.semiring
+                (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                  (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+          (Vj :
+            Nat →
+              @Submodule.{0, v} Real V Real.semiring
+                (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))),
+          (∀ (j : Nat),
+              @FiniteDimensional.{0, u} Real
+                (@Subtype.{u + 1} U fun (x : U) =>
+                  @Membership.mem.{u, u} U
+                    (@Submodule.{0, u} Real U Real.semiring
+                      (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                      (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                        (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                    (@SetLike.instMembership.{u, u}
+                      (@Submodule.{0, u} Real U Real.semiring
+                        (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                      U
+                      (@Submodule.setLike.{0, u} Real U Real.semiring
+                        (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                    (Uj j) x)
+                Real.instDivisionRing
+                (@Submodule.addCommGroup.{0, u} Real U Real.instRing (@NormedAddCommGroup.toAddCommGroup.{u} U inst)
+                  (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                    (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))
+                  (Uj j))
+                (@Submodule.module.{0, u} Real U Real.semiring
+                  (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                  (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                    (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))
+                  (Uj j))) →
+            (∀ (j : Nat),
+                @FiniteDimensional.{0, v} Real
+                  (@Subtype.{v + 1} V fun (x : V) =>
+                    @Membership.mem.{v, v} V
+                      (@Submodule.{0, v} Real V Real.semiring
+                        (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                        (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                          (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                      (@SetLike.instMembership.{v, v}
+                        (@Submodule.{0, v} Real V Real.semiring
+                          (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                          (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                            (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                        V
+                        (@Submodule.setLike.{0, v} Real V Real.semiring
+                          (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                          (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                            (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))))
+                      (Vj j) x)
+                  Real.instDivisionRing
+                  (@Submodule.addCommGroup.{0, v} Real V Real.instRing (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3)
+                    (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                      (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                    (Vj j))
+                  (@Submodule.module.{0, v} Real V Real.semiring
+                    (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                    (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                      (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                    (Vj j))) →
+              (∀ (j : Nat),
+                  @LE.le.{u}
+                    (@Submodule.{0, u} Real U Real.semiring
+                      (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                      (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                        (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                    (@Preorder.toLE.{u}
+                      (@Submodule.{0, u} Real U Real.semiring
+                        (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                      (@PartialOrder.toPreorder.{u}
+                        (@Submodule.{0, u} Real U Real.semiring
+                          (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                        (@Submodule.instPartialOrder.{0, u} Real U Real.semiring
+                          (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))))
+                    (Uj j)
+                    (Uj
+                      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) j
+                        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))) →
+                (∀ (j : Nat),
+                    @LE.le.{v}
+                      (@Submodule.{0, v} Real V Real.semiring
+                        (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                        (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                          (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                      (@Preorder.toLE.{v}
+                        (@Submodule.{0, v} Real V Real.semiring
+                          (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                          (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                            (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                        (@PartialOrder.toPreorder.{v}
+                          (@Submodule.{0, v} Real V Real.semiring
+                            (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                          (@Submodule.instPartialOrder.{0, v} Real V Real.semiring
+                            (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))))
+                      (Vj j)
+                      (Vj
+                        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) j
+                          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))) →
+                  (∀ (x y : U),
+                      @LE.le.{0} Real Real.instLE
+                        (@Norm.norm.{v}
+                          (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                            (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                            (@UniformSpace.toTopologicalSpace.{v} V
+                              (@PseudoMetricSpace.toUniformSpace.{v} V
+                                (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                            (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3)) Real
+                            (@UniformSpace.toTopologicalSpace.{0} Real
+                              (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                            Real.instAddCommMonoid
+                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                            (@Semiring.toModule.{0} Real Real.semiring))
+                          (@ContinuousLinearMap.hasOpNorm.{0, 0, v, 0} Real Real V Real
+                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                            (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+                              (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+                                (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                                  (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+                            (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField)
+                            (@DenselyNormedField.toNontriviallyNormedField.{0} Real Real.denselyNormedField)
+                            (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)
+                            (@InnerProductSpace.toNormedSpace.{0, 0} Real Real Real.instRCLike
+                              (@NonUnitalSeminormedRing.toSeminormedAddCommGroup.{0} Real
+                                (@NonUnitalSeminormedCommRing.toNonUnitalSeminormedRing.{0} Real
+                                  (@SeminormedCommRing.toNonUnitalSeminormedCommRing.{0} Real
+                                    (@NormedCommRing.toSeminormedCommRing.{0} Real Real.normedCommRing))))
+                              (@RCLike.toInnerProductSpaceReal.{0} Real Real.instRCLike))
+                            (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)))
+                          (@HSub.hSub.{v, v, v}
+                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                              (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                              (@UniformSpace.toTopologicalSpace.{v} V
+                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                              (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                              Real
+                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                              Real.instAddCommMonoid
+                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                              (@Semiring.toModule.{0} Real Real.semiring))
+                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                              (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                              (@UniformSpace.toTopologicalSpace.{v} V
+                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                              (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                              Real
+                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                              Real.instAddCommMonoid
+                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                              (@Semiring.toModule.{0} Real Real.semiring))
+                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                              (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                              (@UniformSpace.toTopologicalSpace.{v} V
+                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                              (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                              Real
+                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                              Real.instAddCommMonoid
+                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                              (@Semiring.toModule.{0} Real Real.semiring))
+                            (@instHSub.{v}
+                              (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                                (@UniformSpace.toTopologicalSpace.{v} V
+                                  (@PseudoMetricSpace.toUniformSpace.{v} V
+                                    (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                Real
+                                (@UniformSpace.toTopologicalSpace.{0} Real
+                                  (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                Real.instAddCommMonoid
+                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                (@Semiring.toModule.{0} Real Real.semiring))
+                              (@ContinuousLinearMap.sub.{0, 0, v, 0} Real Real.instRing Real Real.instRing V
+                                (@UniformSpace.toTopologicalSpace.{v} V
+                                  (@PseudoMetricSpace.toUniformSpace.{v} V
+                                    (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3) Real
+                                (@UniformSpace.toTopologicalSpace.{0} Real
+                                  (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                Real.instAddCommGroup
+                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                (@Semiring.toModule.{0} Real Real.semiring)
+                                (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                instIsTopologicalAddGroupReal))
+                            (A x) (A y)))
+                        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) L
+                          (@Norm.norm.{u} U (@NormedAddCommGroup.toNorm.{u} U inst)
+                            (@HSub.hSub.{u, u, u} U U U
+                              (@instHSub.{u} U
+                                (@SubNegMonoid.toSub.{u} U
+                                  (@AddGroup.toSubNegMonoid.{u} U
+                                    (@AddCommGroup.toAddGroup.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst)))))
+                              x y)))) →
+                    @Function.Surjective.{u + 1, v + 1} U V T →
+                      (∀ (j : Nat),
+                          @Set.MapsTo.{u, v} U V T
+                            (@SetLike.coe.{u, u}
+                              (@Submodule.{0, u} Real U Real.semiring
+                                (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                  (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                              U
+                              (@Submodule.setLike.{0, u} Real U Real.semiring
+                                (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                  (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                              (Uj j))
+                            (@SetLike.coe.{v, v}
+                              (@Submodule.{0, v} Real V Real.semiring
+                                (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                              V
+                              (@Submodule.setLike.{0, v} Real V Real.semiring
+                                (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                              (Vj j))) →
+                        (∀ (j : Nat),
+                            @Set.SurjOn.{u, v} U V T
+                              (@SetLike.coe.{u, u}
+                                (@Submodule.{0, u} Real U Real.semiring
+                                  (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                  (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                    (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                U
+                                (@Submodule.setLike.{0, u} Real U Real.semiring
+                                  (@AddCommGroup.toAddCommMonoid.{u} U (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                  (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                    (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                (Uj j))
+                              (@SetLike.coe.{v, v}
+                                (@Submodule.{0, v} Real V Real.semiring
+                                  (@AddCommGroup.toAddCommMonoid.{v} V
+                                    (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                  (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                    (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                                V
+                                (@Submodule.setLike.{0, v} Real V Real.semiring
+                                  (@AddCommGroup.toAddCommMonoid.{v} V
+                                    (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                  (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                    (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                                (Vj j))) →
+                          (∀ (j : Nat) (x : U),
+                              @Membership.mem.{u, u} U
+                                  (@Submodule.{0, u} Real U Real.semiring
+                                    (@AddCommGroup.toAddCommMonoid.{u} U
+                                      (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                    (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                      (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                  (@SetLike.instMembership.{u, u}
+                                    (@Submodule.{0, u} Real U Real.semiring
+                                      (@AddCommGroup.toAddCommMonoid.{u} U
+                                        (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                      (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                        (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                    U
+                                    (@Submodule.setLike.{0, u} Real U Real.semiring
+                                      (@AddCommGroup.toAddCommMonoid.{u} U
+                                        (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                      (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                        (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                                  (Uj j) x →
+                                ∀ (y : U),
+                                  @Membership.mem.{u, u} U
+                                      (@Submodule.{0, u} Real U Real.semiring
+                                        (@AddCommGroup.toAddCommMonoid.{u} U
+                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                      (@SetLike.instMembership.{u, u}
+                                        (@Submodule.{0, u} Real U Real.semiring
+                                          (@AddCommGroup.toAddCommMonoid.{u} U
+                                            (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                        U
+                                        (@Submodule.setLike.{0, u} Real U Real.semiring
+                                          (@AddCommGroup.toAddCommMonoid.{u} U
+                                            (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                                      (Uj j) y →
+                                    @LE.le.{0} Real Real.instLE
+                                      (@Norm.norm.{v} V (@NormedAddCommGroup.toNorm.{v} V inst_3)
+                                        (@HSub.hSub.{v, v, v} V V V
+                                          (@instHSub.{v} V
+                                            (@SubNegMonoid.toSub.{v} V
+                                              (@AddGroup.toSubNegMonoid.{v} V
+                                                (@AddCommGroup.toAddGroup.{v} V
+                                                  (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3)))))
+                                          (T x) (T y)))
+                                      (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) M
+                                        (@Norm.norm.{u} U (@NormedAddCommGroup.toNorm.{u} U inst)
+                                          (@HSub.hSub.{u, u, u} U U U
+                                            (@instHSub.{u} U
+                                              (@SubNegMonoid.toSub.{u} U
+                                                (@AddGroup.toSubNegMonoid.{u} U
+                                                  (@AddCommGroup.toAddGroup.{u} U
+                                                    (@NormedAddCommGroup.toAddCommGroup.{u} U inst)))))
+                                            x y)))) →
+                            (∀ (j : Nat) (x : U),
+                                @Membership.mem.{u, u} U
+                                    (@Submodule.{0, u} Real U Real.semiring
+                                      (@AddCommGroup.toAddCommMonoid.{u} U
+                                        (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                      (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                        (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                    (@SetLike.instMembership.{u, u}
+                                      (@Submodule.{0, u} Real U Real.semiring
+                                        (@AddCommGroup.toAddCommMonoid.{u} U
+                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                      U
+                                      (@Submodule.setLike.{0, u} Real U Real.semiring
+                                        (@AddCommGroup.toAddCommMonoid.{u} U
+                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                                    (Uj j) x →
+                                  ∀ (y : U),
+                                    @Membership.mem.{u, u} U
+                                        (@Submodule.{0, u} Real U Real.semiring
+                                          (@AddCommGroup.toAddCommMonoid.{u} U
+                                            (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                        (@SetLike.instMembership.{u, u}
+                                          (@Submodule.{0, u} Real U Real.semiring
+                                            (@AddCommGroup.toAddCommMonoid.{u} U
+                                              (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                            (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                              (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                          U
+                                          (@Submodule.setLike.{0, u} Real U Real.semiring
+                                            (@AddCommGroup.toAddCommMonoid.{u} U
+                                              (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                            (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                              (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                                        (Uj j) y →
+                                      @LE.le.{0} Real Real.instLE
+                                        (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) α
+                                          (@HPow.hPow.{0, 0, 0} Real Nat Real
+                                            (@instHPow.{0, 0} Real Nat
+                                              (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+                                            (@Norm.norm.{u} U (@NormedAddCommGroup.toNorm.{u} U inst)
+                                              (@HSub.hSub.{u, u, u} U U U
+                                                (@instHSub.{u} U
+                                                  (@SubNegMonoid.toSub.{u} U
+                                                    (@AddGroup.toSubNegMonoid.{u} U
+                                                      (@AddCommGroup.toAddGroup.{u} U
+                                                        (@NormedAddCommGroup.toAddCommGroup.{u} U inst)))))
+                                                x y))
+                                            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+                                        (@DFunLike.coe.{v + 1, v + 1, 1}
+                                          (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                            (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                            V
+                                            (@UniformSpace.toTopologicalSpace.{v} V
+                                              (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                            (@AddCommGroup.toAddCommMonoid.{v} V
+                                              (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                            Real
+                                            (@UniformSpace.toTopologicalSpace.{0} Real
+                                              (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                            Real.instAddCommMonoid
+                                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                            (@Semiring.toModule.{0} Real Real.semiring))
+                                          V (fun (x : V) => Real)
+                                          (@ContinuousLinearMap.funLike.{0, 0, v, 0} Real Real Real.semiring
+                                            Real.semiring
+                                            (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                            V
+                                            (@UniformSpace.toTopologicalSpace.{v} V
+                                              (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                            (@AddCommGroup.toAddCommMonoid.{v} V
+                                              (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                            Real
+                                            (@UniformSpace.toTopologicalSpace.{0} Real
+                                              (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                            Real.instAddCommMonoid
+                                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                            (@Semiring.toModule.{0} Real Real.semiring))
+                                          (@HSub.hSub.{v, v, v}
+                                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            (@instHSub.{v}
+                                              (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                                (@RingHom.id.{0} Real
+                                                  (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                                V
+                                                (@UniformSpace.toTopologicalSpace.{v} V
+                                                  (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                    (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                                (@AddCommGroup.toAddCommMonoid.{v} V
+                                                  (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                                Real
+                                                (@UniformSpace.toTopologicalSpace.{0} Real
+                                                  (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                                Real.instAddCommMonoid
+                                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                                (@Semiring.toModule.{0} Real Real.semiring))
+                                              (@ContinuousLinearMap.sub.{0, 0, v, 0} Real Real.instRing Real
+                                                Real.instRing V
+                                                (@UniformSpace.toTopologicalSpace.{v} V
+                                                  (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                    (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3) Real
+                                                (@UniformSpace.toTopologicalSpace.{0} Real
+                                                  (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                                Real.instAddCommGroup
+                                                (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                  (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                                (@Semiring.toModule.{0} Real Real.semiring)
+                                                (@RingHom.id.{0} Real
+                                                  (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                                instIsTopologicalAddGroupReal))
+                                            (A x) (A y))
+                                          (@HSub.hSub.{v, v, v} V V V
+                                            (@instHSub.{v} V
+                                              (@SubNegMonoid.toSub.{v} V
+                                                (@AddGroup.toSubNegMonoid.{v} V
+                                                  (@AddCommGroup.toAddGroup.{v} V
+                                                    (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3)))))
+                                            (T x) (T y)))) →
+                              ∀
+                                (f :
+                                  @ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                    (@RingHom.id.{0} Real (@Semiring.toNonAssocSemiring.{0} Real Real.semiring)) V
+                                    (@UniformSpace.toTopologicalSpace.{v} V
+                                      (@PseudoMetricSpace.toUniformSpace.{v} V
+                                        (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                    (@AddCommGroup.toAddCommMonoid.{v} V
+                                      (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                    Real
+                                    (@UniformSpace.toTopologicalSpace.{0} Real
+                                      (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                    Real.instAddCommMonoid
+                                    (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                      (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                      (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                    (@Semiring.toModule.{0} Real Real.semiring))
+                                (u : Nat → U),
+                                (∀ (j : Nat),
+                                    @Membership.mem.{u, u} U
+                                      (@Submodule.{0, u} Real U Real.semiring
+                                        (@AddCommGroup.toAddCommMonoid.{u} U
+                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                        (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                          (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                      (@SetLike.instMembership.{u, u}
+                                        (@Submodule.{0, u} Real U Real.semiring
+                                          (@AddCommGroup.toAddCommMonoid.{u} U
+                                            (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1)))
+                                        U
+                                        (@Submodule.setLike.{0, u} Real U Real.semiring
+                                          (@AddCommGroup.toAddCommMonoid.{u} U
+                                            (@NormedAddCommGroup.toAddCommGroup.{u} U inst))
+                                          (@NormedSpace.toModule.{0, u} Real U Real.normedField
+                                            (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst)
+                                            (@InnerProductSpace.toNormedSpace.{0, u} Real U Real.instRCLike
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{u} U inst) inst_1))))
+                                      (Uj j) (u j)) →
+                                  (∀ (j : Nat) (z : V),
+                                      @Membership.mem.{v, v} V
+                                          (@Submodule.{0, v} Real V Real.semiring
+                                            (@AddCommGroup.toAddCommMonoid.{v} V
+                                              (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                            (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                              (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                              (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                                          (@SetLike.instMembership.{v, v}
+                                            (@Submodule.{0, v} Real V Real.semiring
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4)))
+                                            V
+                                            (@Submodule.setLike.{0, v} Real V Real.semiring
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))))
+                                          (Vj j) z →
+                                        @Eq.{1} Real
+                                          (@DFunLike.coe.{v + 1, v + 1, 1}
+                                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            V (fun (x : V) => Real)
+                                            (@ContinuousLinearMap.funLike.{0, 0, v, 0} Real Real Real.semiring
+                                              Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            (A (u j)) z)
+                                          (@DFunLike.coe.{v + 1, v + 1, 1}
+                                            (@ContinuousLinearMap.{0, 0, v, 0} Real Real Real.semiring Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            V (fun (x : V) => Real)
+                                            (@ContinuousLinearMap.funLike.{0, 0, v, 0} Real Real Real.semiring
+                                              Real.semiring
+                                              (@RingHom.id.{0} Real
+                                                (@Semiring.toNonAssocSemiring.{0} Real Real.semiring))
+                                              V
+                                              (@UniformSpace.toTopologicalSpace.{v} V
+                                                (@PseudoMetricSpace.toUniformSpace.{v} V
+                                                  (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                                                    (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3))))
+                                              (@AddCommGroup.toAddCommMonoid.{v} V
+                                                (@NormedAddCommGroup.toAddCommGroup.{v} V inst_3))
+                                              Real
+                                              (@UniformSpace.toTopologicalSpace.{0} Real
+                                                (@PseudoMetricSpace.toUniformSpace.{0} Real Real.pseudoMetricSpace))
+                                              Real.instAddCommMonoid
+                                              (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3)
+                                                (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                                  (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst_3) inst_4))
+                                              (@Semiring.toModule.{0} Real Real.semiring))
+                                            f z)) →
+                                    ∀ (n : Nat),
+                                      @LE.le.{0} Nat instLENat
+                                          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n →
+                                        @LE.le.{0} Real Real.instLE
+                                          (@Finset.sum.{0, 0} Nat Real Real.instAddCommMonoid
+                                            (@Finset.Ico.{0} Nat Nat.instPreorder Nat.instLocallyFiniteOrder
+                                              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n)
+                                            fun (i : Nat) =>
+                                            @HPow.hPow.{0, 0, 0} Real Nat Real
+                                              (@instHPow.{0, 0} Real Nat
+                                                (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+                                              (@Norm.norm.{u} U (@NormedAddCommGroup.toNorm.{u} U inst)
+                                                (@HSub.hSub.{u, u, u} U U U
+                                                  (@instHSub.{u} U
+                                                    (@SubNegMonoid.toSub.{u} U
+                                                      (@AddGroup.toSubNegMonoid.{u} U
+                                                        (@AddCommGroup.toAddGroup.{u} U
+                                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst)))))
+                                                  (u
+                                                    (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) i
+                                                      (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+                                                  (u i)))
+                                              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))
+                                          (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul)
+                                            (@HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) C
+                                              (Real.rpow (@Nat.cast.{0} Real Real.instNatCast n)
+                                                (@HSub.hSub.{0, 0, 0} Real Real Real (@instHSub.{0} Real Real.instSub)
+                                                  (@OfNat.ofNat.{0} Real (nat_lit 1)
+                                                    (@One.toOfNat1.{0} Real Real.instOne))
+                                                  δ)))
+                                            (@HPow.hPow.{0, 0, 0} Real Nat Real
+                                              (@instHPow.{0, 0} Real Nat
+                                                (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+                                              (@Norm.norm.{u} U (@NormedAddCommGroup.toNorm.{u} U inst)
+                                                (@HSub.hSub.{u, u, u} U U U
+                                                  (@instHSub.{u} U
+                                                    (@SubNegMonoid.toSub.{u} U
+                                                      (@AddGroup.toSubNegMonoid.{u} U
+                                                        (@AddCommGroup.toAddGroup.{u} U
+                                                          (@NormedAddCommGroup.toAddCommGroup.{u} U inst)))))
+                                                  (u n)
+                                                  (u (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))))
+                                              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))))) : Prop

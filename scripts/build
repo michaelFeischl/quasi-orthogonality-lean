@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail
+source "$(dirname -- "$0")/env.sh"
+cd "$AF_ROOT"
+mkdir -p "$HOME/.cache/lean-autoformalization"
+# Serialize project builds across all projects using this wrapper.
+# Create the lock on a new machine; preserve the inode of an existing lock.
+if [[ ! -e "$HOME/.cache/lean-autoformalization/build.lock" ]]; then
+  touch "$HOME/.cache/lean-autoformalization/build.lock"
+fi
+exec 9<"$HOME/.cache/lean-autoformalization/build.lock"
+flock 9
+# Keep source/pin/quarantine checks inside the same lock as Lean and Lake.
+AF_GUARD_OUTPUT="$(python3 "$AF_ROOT/scripts/check_campaign.py" --root "$AF_ROOT")"
+printf '%s\n' "$AF_GUARD_OUTPUT"
+if [[ "$AF_GUARD_OUTPUT" != "CAMPAIGN GUARD OK" ]]; then
+  exit 1
+fi
+if [[ "${1:-}" == "--check" ]]; then
+  shift
+  # Check transient files without registering them in the production library.
+  # This uses cached imports and the very same machine-wide build lock.
+  exec nice -n 5 lake env lean "$@"
+fi
+if [[ "${1:-}" == "--replay" ]]; then
+  shift
+  exec nice -n 5 lake env leanchecker --verbose "$@"
+fi
+exec nice -n 5 lake build "$@"

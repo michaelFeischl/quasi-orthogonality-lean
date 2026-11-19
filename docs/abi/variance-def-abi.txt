@@ -1,0 +1,20 @@
+(V : Type v) →
+  [inst : NormedAddCommGroup.{v} V] →
+    [@InnerProductSpace.{0, v} Real V Real.instRCLike (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)] →
+      [@CompleteSpace.{v} V
+            (@PseudoMetricSpace.toUniformSpace.{v} V
+              (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V
+                (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)))] →
+        (x : Nat → V) →
+          (n : Nat) →
+            (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n) →
+              (I : Finset.{0} Nat) →
+                (hI : @Finset.Nonempty.{0} Nat I) →
+                  (hIn :
+                      @LE.le.{0} (Finset.{0} Nat)
+                        (@Preorder.toLE.{0} (Finset.{0} Nat)
+                          (@PartialOrder.toPreorder.{0} (Finset.{0} Nat) (@Finset.instPartialOrder.{0} Nat)))
+                        I
+                        (@Finset.Icc.{0} Nat Nat.instPreorder Nat.instLocallyFiniteOrder
+                          (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n)) →
+                    Real : Type (v + 1)

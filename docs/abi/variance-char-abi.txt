@@ -1,0 +1,139 @@
+∀ (V : Type v) [inst : NormedAddCommGroup.{v} V]
+  [inst_1 : @InnerProductSpace.{0, v} Real V Real.instRCLike (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)]
+  [inst_2 :
+    @CompleteSpace.{v} V
+      (@PseudoMetricSpace.toUniformSpace.{v} V
+        (@SeminormedAddCommGroup.toPseudoMetricSpace.{v} V (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)))]
+  (x : Nat → V) (n : Nat)
+  (hn : @LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n) (I : Finset.{0} Nat)
+  (hI : @Finset.Nonempty.{0} Nat I)
+  (hIn :
+    @LE.le.{0} (Finset.{0} Nat)
+      (@Preorder.toLE.{0} (Finset.{0} Nat)
+        (@PartialOrder.toPreorder.{0} (Finset.{0} Nat) (@Finset.instPartialOrder.{0} Nat)))
+      I
+      (@Finset.Icc.{0} Nat Nat.instPreorder Nat.instLocallyFiniteOrder
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))) n)),
+  let P : Real → Prop := fun (E : Real) =>
+    And
+      (@Exists.{1} (Nat → Real) fun (w : Nat → Real) =>
+        And
+          (∀ (i : Nat),
+            @Membership.mem.{0, 0} Nat (Finset.{0} Nat)
+                (@SetLike.instMembership.{0, 0} (Finset.{0} Nat) Nat (@Finset.instSetLike.{0} Nat)) I i →
+              And
+                (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  (w i))
+                (@LE.le.{0} Real Real.instLE (w i)
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
+          (And
+            (@Eq.{1} Real (@Finset.sum.{0, 0} Nat Real Real.instAddCommMonoid I fun (i : Nat) => w i)
+              (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))
+            (@Eq.{1} Real
+              (@Finset.sum.{0, 0} Nat Real Real.instAddCommMonoid I fun (i : Nat) =>
+                @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (w i)
+                  (@HPow.hPow.{0, 0, 0} Real Nat Real
+                    (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+                    (@Norm.norm.{v} V (@NormedAddCommGroup.toNorm.{v} V inst)
+                      (@HSub.hSub.{v, v, v} V V V
+                        (@instHSub.{v} V
+                          (@SubNegMonoid.toSub.{v} V
+                            (@AddGroup.toSubNegMonoid.{v} V
+                              (@AddCommGroup.toAddGroup.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))
+                        (x i)
+                        (@Finset.sum.{0, v} Nat V
+                          (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst)) I
+                          fun (j : Nat) =>
+                          @HSMul.hSMul.{0, v, v} Real V V
+                            (@instHSMul.{0, v} Real V
+                              (@SMulZeroClass.toSMul.{0, v} Real V
+                                (@AddZero.toZero.{v} V
+                                  (@AddZeroClass.toAddZero.{v} V
+                                    (@AddMonoid.toAddZeroClass.{v} V
+                                      (@SubNegMonoid.toAddMonoid.{v} V
+                                        (@AddGroup.toSubNegMonoid.{v} V
+                                          (@AddCommGroup.toAddGroup.{v} V
+                                            (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))))
+                                (@DistribSMul.toSMulZeroClass.{0, v} Real V
+                                  (@AddMonoid.toAddZeroClass.{v} V
+                                    (@SubNegMonoid.toAddMonoid.{v} V
+                                      (@AddGroup.toSubNegMonoid.{v} V
+                                        (@AddCommGroup.toAddGroup.{v} V
+                                          (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))
+                                  (@DistribMulAction.toDistribSMul.{0, v} Real V Real.instMonoid
+                                    (@SubNegMonoid.toAddMonoid.{v} V
+                                      (@AddGroup.toSubNegMonoid.{v} V
+                                        (@AddCommGroup.toAddGroup.{v} V
+                                          (@NormedAddCommGroup.toAddCommGroup.{v} V inst))))
+                                    (@Module.toDistribMulAction.{0, v} Real V Real.semiring
+                                      (@AddCommGroup.toAddCommMonoid.{v} V
+                                        (@NormedAddCommGroup.toAddCommGroup.{v} V inst))
+                                      (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)
+                                        (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst) inst_1)))))))
+                            (w j) (x j))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+              E)))
+      (∀ (w : Nat → Real),
+        (∀ (i : Nat),
+            @Membership.mem.{0, 0} Nat (Finset.{0} Nat)
+                (@SetLike.instMembership.{0, 0} (Finset.{0} Nat) Nat (@Finset.instSetLike.{0} Nat)) I i →
+              And
+                (@LE.le.{0} Real Real.instLE (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero))
+                  (w i))
+                (@LE.le.{0} Real Real.instLE (w i)
+                  (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)))) →
+          @Eq.{1} Real (@Finset.sum.{0, 0} Nat Real Real.instAddCommMonoid I fun (i : Nat) => w i)
+              (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) →
+            @LE.le.{0} Real Real.instLE
+              (@Finset.sum.{0, 0} Nat Real Real.instAddCommMonoid I fun (i : Nat) =>
+                @HMul.hMul.{0, 0, 0} Real Real Real (@instHMul.{0} Real Real.instMul) (w i)
+                  (@HPow.hPow.{0, 0, 0} Real Nat Real
+                    (@instHPow.{0, 0} Real Nat (@NPow.toPow.{0} Real (@Monoid.toNPow.{0} Real Real.instMonoid)))
+                    (@Norm.norm.{v} V (@NormedAddCommGroup.toNorm.{v} V inst)
+                      (@HSub.hSub.{v, v, v} V V V
+                        (@instHSub.{v} V
+                          (@SubNegMonoid.toSub.{v} V
+                            (@AddGroup.toSubNegMonoid.{v} V
+                              (@AddCommGroup.toAddGroup.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))
+                        (x i)
+                        (@Finset.sum.{0, v} Nat V
+                          (@AddCommGroup.toAddCommMonoid.{v} V (@NormedAddCommGroup.toAddCommGroup.{v} V inst)) I
+                          fun (j : Nat) =>
+                          @HSMul.hSMul.{0, v, v} Real V V
+                            (@instHSMul.{0, v} Real V
+                              (@SMulZeroClass.toSMul.{0, v} Real V
+                                (@AddZero.toZero.{v} V
+                                  (@AddZeroClass.toAddZero.{v} V
+                                    (@AddMonoid.toAddZeroClass.{v} V
+                                      (@SubNegMonoid.toAddMonoid.{v} V
+                                        (@AddGroup.toSubNegMonoid.{v} V
+                                          (@AddCommGroup.toAddGroup.{v} V
+                                            (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))))
+                                (@DistribSMul.toSMulZeroClass.{0, v} Real V
+                                  (@AddMonoid.toAddZeroClass.{v} V
+                                    (@SubNegMonoid.toAddMonoid.{v} V
+                                      (@AddGroup.toSubNegMonoid.{v} V
+                                        (@AddCommGroup.toAddGroup.{v} V
+                                          (@NormedAddCommGroup.toAddCommGroup.{v} V inst)))))
+                                  (@DistribMulAction.toDistribSMul.{0, v} Real V Real.instMonoid
+                                    (@SubNegMonoid.toAddMonoid.{v} V
+                                      (@AddGroup.toSubNegMonoid.{v} V
+                                        (@AddCommGroup.toAddGroup.{v} V
+                                          (@NormedAddCommGroup.toAddCommGroup.{v} V inst))))
+                                    (@Module.toDistribMulAction.{0, v} Real V Real.semiring
+                                      (@AddCommGroup.toAddCommMonoid.{v} V
+                                        (@NormedAddCommGroup.toAddCommGroup.{v} V inst))
+                                      (@NormedSpace.toModule.{0, v} Real V Real.normedField
+                                        (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst)
+                                        (@InnerProductSpace.toNormedSpace.{0, v} Real V Real.instRCLike
+                                          (@NormedAddCommGroup.toSeminormedAddCommGroup.{v} V inst) inst_1)))))))
+                            (w j) (x j))))
+                    (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+              E);
+  And (P (@Autoformalization.PetrovGalerkin.maximalVariance.{v} V inst inst_1 inst_2 x n hn I hI hIn))
+    (∀ (E : Real),
+      P E →
+        @Eq.{1} Real E
+          (@Autoformalization.PetrovGalerkin.maximalVariance.{v} V inst inst_1 inst_2 x n hn I hI hIn)) : Prop

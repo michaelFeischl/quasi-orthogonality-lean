@@ -1,0 +1,750 @@
+\documentclass[10pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{color,xcolor}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{microtype}
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{literature.bib}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Nzero}{\mathbb N_0}
+\newcommand{\norm}[1]{\lVert #1\rVert}
+\newcommand{\dual}[2]{\langle #1,#2\rangle}
+\DeclareMathOperator{\diam}{diam}
+\newcommand{\dn}[1]{{\color{orange}#1}}
+
+\title[Nonlinear Galerkin quasi-orthogonality]{Quasi-orthogonality\protect\\
+for strongly monotone Galerkin methods}
+\date{}
+\hypersetup{
+  pdftitle={Quasi-orthogonality for strongly monotone Galerkin methods},
+  pdfkeywords={strong monotonicity, nonlinear Galerkin methods, quasi-orthogonality}
+}
+\author{Michael Feischl and David Niederkofler}
+\begin{document}
+\begin{abstract}
+    Quasi-orthogonality is one of the key ingredients for proofs of optimal convergence rates for adaptive mesh refinement methods~\cite{axioms}. The work~\cite{infsup} proposed a relaxed quasi-orthogonality that follows directly from the inf-sup stability of the underlying problem discretization. The proof uses an intricate connection to the stability of $LU$-factorization of matrices. Recently,~\cite{gantumur} presented a vastly simplified argument based solely on Hilbert space arguments. Building on this idea, we show that also certain nonlinear problems imply quasi-orthogonality directly.
+\end{abstract}
+\maketitle
+\markboth{NONLINEAR GALERKIN QUASI-ORTHOGONALITY}{NONLINEAR GALERKIN QUASI-ORTHOGONALITY}
+
+\section{Setting and main result}
+We consider a
+nonlinear Petrov--Galerkin setting with compatible maps from the trial
+spaces onto the test spaces.
+
+\noindent
+Let $U,V$ be real Hilbert spaces. We denote the duality pairing between
+$V^\star$ and $V$ by $\dual{\cdot}{\cdot}$, and equip each subspace occurring in the discussion
+with the norm inherited from its ambient space. Suppose that
+$A:U\to V^\star$ satisfies
+\begin{equation}\label{eq:pg-lipschitz}
+  \norm{Ax-Ay}_{V^\star}\le L\norm{x-y}_U,
+  \qquad x,y\in U,
+\end{equation}
+for some $L>0$. Let $(U_j)_{j\ge0}$ and $(V_j)_{j\ge0}$ be nested
+sequences of finite-dimensional linear subspaces of $U$ and $V$,
+respectively. Nestedness means that for all $j\ge0$, we have $U_j\subseteq U_{j+1}$ and $V_j\subseteq V_{j+1}$. Suppose that there is a surjective map $T\colon U\to V$ such that
+\[
+  T|_{U_j}\colon U_j\to V_j
+\]
+is surjective for all $j\geq 0$ and constants $M,\alpha>0$, independent of $j$, such that
+\begin{align}
+  \norm{Tx-Ty}_V
+  &\le M\norm{x-y}_U,
+    \label{eq:pg-map-bound}\\
+  \dual{Ax-Ay}{Tx-Ty}
+  &\ge\alpha\norm{x-y}_U^2,
+    \qquad x,y\in U_j.
+    \label{eq:pg-monotonicity}
+\end{align}
+We consider the solutions $u_j\in U_j$ to
+\begin{align}\label{eq:discrete}
+    \dual{Au_j}{v}=\dual{f}{v}\quad\text{for all }v\in V_j.
+\end{align}
+
+The well-posedness follows standard arguments and is included for completeness only.
+\begin{lemma}[Discrete well-posedness]\label{lem:pg-wellposed}
+For every $f\in V^\star$, the equations~\eqref{eq:discrete}
+have a unique solution.
+\end{lemma}
+
+\begin{proof}
+For $x,y\in U_j$, the assumptions give
+\begin{align}\label{eq:invLipschitz}
+  \alpha\norm{x-y}_U^2
+  \le\norm{Ax-Ay}_{V^\star}\norm{Tx-Ty}_V
+  \le L\norm{x-y}_U\norm{Tx-Ty}_V.
+\end{align}
+This proves that $T_j:=T|_{U_j}$ is injective. By its assumed surjectivity it is
+a bijection, and its inverse is $(L/\alpha)$-Lipschitz.
+If $V_j=\{0\}$, bijectivity implies $U_j=\{0\}$ and the assertion
+is immediate. Otherwise, define $B_j:V_j\to V_j^\star$ by
+\[
+  \dual{B_jz}{v}:=\dual{A(T_j^{-1}z)}{v},
+  \qquad z,v\in V_j.
+\]
+Writing $x=T_j^{-1}z$ and $y=T_j^{-1}\zeta$, we obtain
+\begin{align*}
+  \norm{B_jz-B_j\zeta}_{V_j^\star}
+  &\le\norm{Ax-Ay}_{V^\star}
+   \le\frac{L^2}{\alpha}\norm{z-\zeta}_V,\\
+  \dual{B_jz-B_j\zeta}{z-\zeta}
+  &\ge\alpha\norm{x-y}_U^2
+   \ge\frac{\alpha}{M^2}\norm{z-\zeta}_V^2.
+\end{align*}
+Set $\Lambda=L^2/\alpha$ and $\beta=\alpha/M^2$.
+These inequalities imply $0<\beta\le\Lambda$. Let
+$R_j:V_j\to V_j^\star$ be the Riesz isometry, and put $f_j=f|_{V_j}$.
+The map
+\[
+  F_j(z):=z-\frac\beta{\Lambda^2}R_j^{-1}(B_jz-f_j),
+  \qquad z\in V_j
+\]
+satisfies
+\begin{align*}
+  \norm{F_j(z)-F_j(\zeta)}_V^2
+  &=\norm{z-\zeta}_V^2
+    -\frac{2\beta}{\Lambda^2}
+       \dual{B_jz-B_j\zeta}{z-\zeta}
+    +\frac{\beta^2}{\Lambda^4}
+       \norm{B_jz-B_j\zeta}_{V_j^\star}^2\\
+  &\le\left(1-\frac{\beta^2}{\Lambda^2}\right)
+       \norm{z-\zeta}_V^2.
+\end{align*}
+The space $V_j$ is complete, so the contraction principle gives a
+unique fixed point $z$, equivalently a unique solution of $B_jz=f_j$.
+Then $u_j=T_j^{-1}z$ is the unique solution.
+\end{proof}
+% Define the diameter of the solution set by
+% \begin{align*}
+%     D:=\max_{v,v'\in \{u_1,\ldots, u_n,u\}} \norm{v-v'}_U.
+% \end{align*}
+% We define the residual
+% \begin{align*}
+%     r_i := f-Au_i \in V^\star
+% \end{align*}
+% and note
+% \begin{align*}
+%     \norm{r_i}_{V^\star}\leq L\norm{u-u_i}_U\leq LD.
+% \end{align*}
+Clearly, there hold the C\'ea type estimates for all $0\leq i\leq j\leq k\leq \ell\leq n$
+\begin{align*}
+    \alpha \norm{u_k-u_j}_U^2\leq \dual{Au_k-Au_j}{Tu_k-Tu_j} = \dual{Au_k-Au_j}{Tu_k-Tu_i}\leq LM\norm{u_k-u_j}_U\norm{u_k-u_i}_U
+\end{align*}
+and 
+\begin{align*}
+    \alpha \norm{u_k-u_i}_U^2\leq \dual{Au_k-Au_i}{Tu_k-Tu_i} = \dual{Au_\ell-Au_i}{Tu_k-Tu_i}\leq LM\norm{u_\ell-u_i}_U\norm{u_k-u_i}_U.
+\end{align*}
+Both estimates can be combined to
+\begin{align*}
+    \norm{u_k-u_j}_U\leq (LM/\alpha)^2 \norm{u_\ell-u_i}_U.
+\end{align*}
+With these ingredients, we proceed to prove the main theorem.
+\begin{theorem}\label{thm:qo}
+There exists $C>0$ that depends only on the constants $L$, $M$, and $\alpha$ such that
+\begin{align*}
+    \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U\leq C n^{1-\delta} \norm{u_n-u_1}_U^2,
+\end{align*}
+where $\delta := 1-\log_2\max\{3/2,(1/2+\alpha^4/(64L^4M^4))^{-1}\}>0$.
+\end{theorem}
+\begin{proof}
+The main idea of the following proof is to look at the variance (mean squared distance from the center) of different subsets of $Tu_1,\ldots, Tu_n$.
+By using the fact that the residual $r_i:=f-Au_i$ separates $Tu_{i+1},\ldots,Tu_n$ from $Tu_1,\ldots, Tu_i$ for all $1\leq i\leq n$, we will show that combining two disjoint subsets increases the variance by a factor that is slightly larger than two. 
+Moreover, the variance of subsets of the form $\{i,i+1\}$ is an upper bound for $\norm{u_{i+1}-u_i}_U^2$. Combining both observations allows us to iteratively combine two disjoint sets into larger ones until we reach the full set. This requires roughly $\log_2(n)$ iterations. Since the size grows by less than the factor of two per iteration, we get the result.
+
+
+Define $x_i := T u_i\in V$.
+
+    \textbf{Step 1:} For $I\subseteq \{1,\ldots,n\}$ define the variance
+    \begin{align*}
+        E_I : = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1}\sum_{i\in I}\lambda_i \norm{x_i- \mu_{I,\lambda}}_V^2\quad\text{with}\quad \mu_{I,\lambda}:=\sum_{i\in I} \lambda_i x_i.
+    \end{align*}
+    There holds
+    \begin{align}
+        E_I = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1}\Big(\sum_{i\in I}\lambda_i \norm{x_i}_V^2  - 2\sum_{i\in I}\lambda_i \dual{x_i}{\mu_{I,\lambda}}_V+\norm{\mu_{I,\lambda}}_V^2\Big) = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1} \Big(\sum_{i\in I}\lambda_i \norm{x_i}_V^2  - \norm{\mu_{I,\lambda}}_V^2\Big). 
+    \end{align}
+    Given $I,I'\subseteq \{1,\ldots,n\}$ with $I\cap I' = \emptyset$ and corresponding maximizers $\lambda_I$ and $\lambda_{I'}$, there holds
+    \begin{align}\label{eq:Eest}
+    \begin{split}
+        E_{I\cup I'} &\geq  \frac12\Big(\sum_{i\in I}\lambda_{I,i} \norm{x_i}_V^2+\sum_{i\in I'}\lambda_{I',i} \norm{x_i}_V^2\Big)-\frac14\norm{\sum_{i\in I}\lambda_{I,i}x_i+\sum_{i\in I'}\lambda_{I',i}x_i}_V^2\\
+        &\geq  \frac12\Big(E_I + E_{I'}\Big)+\frac14\norm{\sum_{i\in I}\lambda_{I,i}x_i}_V^2+\frac14\norm{\sum_{i\in I'}\lambda_{I',i}x_i}_V^2
+        -\frac12 \dual{\sum_{i\in I}\lambda_{I,i}x_i}{\sum_{i\in I'}\lambda_{I',i}x_i}_V\\
+        &=
+        \frac12\Big(E_I + E_{I'}\Big)+\frac14\norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V^2.
+        \end{split}
+    \end{align}
+
+    \textbf{Step 2:}    
+    If $i<i'$ for all $i\in I$ and $i'\in I'$, there holds
+    \begin{align*}
+        \dual{Au_{\max I'}-Au_{\min I'}}{\mu_{I',\lambda_{I'}}-\mu_{I,\lambda_{I}}} &= 
+         \dual{Au_{\max I'}-Au_{\min I'}}{\mu_{I',\lambda_{I'}}-Tu_{\min I'}} \\
+         &= \sum_{i\in I'}\lambda_{I',i}\dual{Au_i-Au_{\min I'}}{Tu_i-Tu_{\min I'}} \\
+         &\geq 
+         \alpha\sum_{i\in I'} \lambda_{I',i}\norm{u_i-u_{\min I'}}_U^2\geq \alpha/M^2 E_{I'},
+         \end{align*}
+    where the last inequality follows since the mean minimizes the squared distances. Cauchy-Schwartz yields
+    \begin{align*}
+     L\norm{u_{\max I'}-u_{\min I'}}_{U} \norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V \geq \norm{Au_{\max I'}-Au_{\min I'}}_{V^\star}\norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V\geq \alpha/M^2 E_{I'}.
+    \end{align*}
+    Moreover, we have for $i=\min I'$ and $j=\max I'$ that
+    \begin{align*}
+        E_{ I'}\geq \frac12\Big(\norm{Tu_i-(Tu_i+Tu_j)/2}_V^2+\norm{Tu_j-(Tu_i+Tu_j)/2}_V^2\Big)\geq\alpha^2/(4L^2) \norm{u_{\max I'}-u_{\min I'}}_{U}^2,
+    \end{align*}
+    where the second inequality follows by \eqref{eq:invLipschitz}
+    and hence
+    \begin{align*}
+        4L^4 \norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}^2 \geq  \alpha^4/M^4 E_{I'}.
+    \end{align*}
+    Together with~\eqref{eq:Eest}, this shows for $c = \alpha^4/(16L^4M^4)$
+    \begin{align}\label{eq:quadest}
+        E_{I\cup I'}\geq \frac12\Big(E_I + E_{I'}\Big)+cE_{I'}.
+    \end{align}
+
+    \textbf{Step 3:}
+    If $E_{I'}\geq \frac12 E_I$, the above inequality~\eqref{eq:quadest} shows
+    \begin{align*}
+        E_{I\cup I'}\geq (\frac{1}{2}+\frac{c}{4})(E_I+E_{I'}).
+    \end{align*}
+    If $E_{I'}<\frac12 E_I$, we use $E_I \leq E_{I \cup I'}$ to also get $(E_I+E_{I'})\leq \frac32 E_I\leq \frac32 E_{I\cup I'}$.
+    Thus, in both cases we have 
+    \begin{align}\label{eq:reduction}
+    E_I+E_{I'}\leq qE_{I\cup I'}
+    \end{align}
+    for $q:=\max\{3/2,(1/2+c/4)^{-1}\}<2$.
+
+    \textbf{Step 4}: 
+    There holds for $k=\lfloor\log_2(n-1)\rfloor$ that
+    \begin{align*}
+        \max\Big\{\sum_{i=1}^{2^k} \norm{u_{i+1}-u_i}^2_U, \sum_{i=n-2^k}^{n-1} \norm{u_{i+1}-u_i}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
+    \end{align*}
+    Thus, without loss of generality, we may assume $n-1=2^k$. Moreover, there holds
+    \begin{align*}
+        \max\Big\{\sum_{j=1}^{(n-1)/2} \norm{u_{2j}-u_{2j-1}}^2_U, \sum_{j=1}^{(n-1)/2} \norm{u_{2j+1}-u_{2j}}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
+    \end{align*}
+    Without loss of generality, we assume that the first sum in the maximum above is the larger one and start with $I_j:= \{2j-1,2j\}$ for all $j=1,\ldots,(n-1)/2$. Using~\eqref{eq:reduction}, we may iteratively combine consecutive $I_j$ and $I_{j+1}$ to obtain
+    \begin{align*}
+        \sum_{j=1}^{(n-1)/2}E_{I_j}\leq q^{\log_2(n)} E_{\{1,\ldots,n\}}.
+    \end{align*}
+    Clearly, we have $E_{\{1,\ldots,n\}}\lesssim  \norm{u_n-u_1}_U^2$ and also $E_{I_j}\geq \frac14\norm{Tu_{2j}-Tu_{2j-1}}_V^2\geq \alpha^2/(4L^2)\norm{u_{2j}-u_{2j-1}}_U^2$, where we used~\eqref{eq:invLipschitz} for the last inequality. 
+    This and $q^{\log_2(n)} = n^{\log_2(q)}$ conclude the proof.
+\end{proof}
+
+
+% By~\eqref{eq:pg-comparison} and the triangle inequality,
+% $D_{\ell,\ell+m}\le 2K\norm{u_{\ell+m}-u_\ell}_U$. Thus the preceding
+% estimate gives quasi-orthogonality with $b(m)\lesssim m/\sqrt{\log_2(m+1)}$.
+
+% \begin{lemma}[Quasi-orthogonality with a sublinear factor]
+% \label{lem:sublinear-increments}
+% Suppose that Petrov--Galerkin quasi-orthogonality holds in the form
+% \begin{equation}\label{eq:pg-qo-sublinear}
+%   \sum_{j=\ell}^{\ell+m-1}\norm{u_{j+1}-u_j}_U^2
+%   \le b(m)\norm{u_{\ell+m}-u_\ell}_U^2,
+%   \qquad \ell\in\Nzero,\quad m\in\N,
+% \end{equation}
+% with the same factor $b(m)=o(m)$ for all admissible nested trial and
+% test spaces. Then quasi-orthogonality also holds with $C m^{1-\delta}$
+% in place of $b(m)$, where $C\ge1$ and $0<\delta<1$ depend only on $b$.
+% \end{lemma}
+
+% \begin{proof}
+% We first note that any subsequence of levels is again a nested
+% Petrov--Galerkin hierarchy with the same constants,
+% so~\eqref{eq:pg-qo-sublinear} applies to it. This gives the following
+% submultiplicative property. Let $m=qp$ with $q,p\in\N$, and put
+% $i_r:=\ell+rp$ for $0\le r\le q$. Split the window $[\ell,\ell+m-1]$
+% into $q$ subwindows $[i_{r-1},i_r-1]$ of $p$ increments each.
+% Applying~\eqref{eq:pg-qo-sublinear} first on each subwindow and then
+% on the levels $i_0,\ldots,i_q$ gives
+% \begin{align*}
+%   \sum_{j=\ell}^{\ell+m-1}\norm{u_{j+1}-u_j}_U^2
+%   &=\sum_{r=1}^q\sum_{j=i_{r-1}}^{i_r-1}\norm{u_{j+1}-u_j}_U^2\\
+%   &\le b(p)\sum_{r=1}^q\norm{u_{i_r}-u_{i_{r-1}}}_U^2\\
+%   &\le b(p)b(q)\norm{u_{\ell+m}-u_\ell}_U^2.
+% \end{align*}
+% Iterating the product estimate gives the factor $b(q)^h$ if $m=q^h$,  for some $h \in \N$. If $m<q^h$, repeat the terminal level $q^h-m$ times, using the same trial space, test space, and test map. The resulting hierarchy is admissible. Each added increment is zero, and the window error \(\|u_{\ell+m}-u_\ell\|_U\) is unchanged. Hence for $m \leq q^h$ it holds
+% \begin{align*}
+%   \sum_{j=\ell}^{\ell+m-1}\norm{u_{j+1}-u_j}_U^2
+%   \leq b(q)^h\norm{u_{\ell+m}-u_\ell}_U^2.
+% \end{align*}
+% The next step is to choose $q$ accordingly. By the sublinearity of $b$, we can find $2 < q \in \N$ such that $b(q) \leq \frac{q}{2}$. Let $q^{h-1} \leq m \leq q^{h}$. We obtain
+% \begin{align*}
+%   \sum_{j=\ell}^{\ell+m-1}\norm{u_{j+1}-u_j}_U^2
+%   \leq b(q)^h\norm{u_{\ell+m}-u_\ell}_U^2
+%    \leq \Big(\frac{q}{2}\Big)^h \norm{u_{\ell+m}-u_\ell}_U^2
+%    \leq q m^{1-\delta} \norm{u_{\ell+m}-u_\ell}_U^2,
+% \end{align*}
+% with $0<\delta=\log_q(2)<1$. This concludes the proof.
+% \end{proof}
+
+% \begin{lemma}[Number of large displacements]\label{lem:pg-oscillation}
+% Fix $0\le a\le b$ with $D=D_{a,b}>0$. Suppose that
+% \[
+%   a\le t_1<\cdots<t_m\le b,\qquad
+%   \norm{u_{t_{s+1}}-u_{t_s}}_U>D/4,\quad 1\le s<m.
+% \]
+% Then
+% \begin{equation}\label{eq:pg-count}
+%   m<M_K:=2^{1024K^6+1}.
+% \end{equation}
+% \end{lemma}
+
+% \begin{proof}
+% Use $z_i=T_bu_i$ and the residuals of
+% Lemma~\ref{lem:pg-residual} on this block.
+% For $s<r$, estimate~\eqref{eq:pg-comparison} with
+% $(i,j,k)=(t_s,t_{s+1},t_r)$ gives
+% \[
+%   \norm{u_{t_r}-u_{t_s}}_U
+%   \ge K^{-1}\norm{u_{t_{s+1}}-u_{t_s}}_U
+%   >\frac D{4K}.
+% \]
+% Thus every pair of distinct selected points has this separation.
+% Put $q:=\lfloor\log_2m\rfloor$, $n:=2^q$, and retain the first $n$
+% selected points. For $d=0,\ldots,q$, let $\mathcal D_d$ be the
+% partition of $\{1,\ldots,n\}$ into $2^d$ consecutive blocks of
+% equal size. For each such block $I$, define
+% \[
+%   \mu_I:=\frac1{|I|}\sum_{s\in I}z_{t_s},\qquad
+%   \mathcal V(I):=\frac1{|I|}\sum_{s\in I}
+%                      \norm{z_{t_s}-\mu_I}_V^2.
+% \]
+% If $I$ is not a singleton, denote its left and right halves by
+% $I_-$ and $I_+$, respectively, and take $i=t_{\max I_-}$.
+% Equation~\eqref{eq:pg-annihilation} gives
+% $\dual{r_i}{\mu_{I_-}-z_a}=0$. Every index $t_s$ with $s\in I_+$
+% is larger than $i$, so~\eqref{eq:pg-separation} and pairwise
+% separation give
+% \[
+%   \dual{r_i}{\mu_{I_+}-\mu_{I_-}}
+%   =\frac1{|I_+|}\sum_{s\in I_+}\dual{r_i}{z_{t_s}-z_a}
+%   \ge\frac{D^2}{16K^2}.
+% \]
+% Using the dual norm estimate in~\eqref{eq:pg-residual-bounds},
+% followed by $LM/\alpha\le K$, we conclude that
+% \begin{equation}\label{eq:pg-mean-separation}
+%   \norm{\mu_{I_+}-\mu_{I_-}}_V
+%   \ge\frac{\alpha D}{16LK^2}
+%   \ge\frac{MD}{16K^3}.
+% \end{equation}
+% We now use the Hilbert-space variance identity in $V$:
+% \begin{equation}\label{eq:pg-variance-identity}
+%   \mathcal V(I)
+%   =\frac12\mathcal V(I_-)+\frac12\mathcal V(I_+)
+%     +\frac14\norm{\mu_{I_+}-\mu_{I_-}}_V^2.
+% \end{equation}
+% To verify it, expand
+% $z_{t_s}-\mu_I=(z_{t_s}-\mu_{I_\pm})
+%  +(\mu_{I_\pm}-\mu_I)$ on each half. The cross terms sum to zero
+% by the definition of the means, and
+% $\mu_I=(\mu_{I_-}+\mu_{I_+})/2$.
+% For each $0\le d<q$, multiply~\eqref{eq:pg-variance-identity}
+% by $|I|/n$ and sum over $I\in\mathcal D_d$. Since each child has
+% half the size of its parent, the two child terms have weights
+% $|I_-|/n$ and $|I_+|/n$. Every block in $\mathcal D_{d+1}$ occurs
+% exactly once, so
+% \[
+%   \sum_{I\in\mathcal D_d}\frac{|I|}{n}\mathcal V(I)
+%   -\sum_{J\in\mathcal D_{d+1}}\frac{|J|}{n}\mathcal V(J)
+%   =\sum_{I\in\mathcal D_d}\frac{|I|}{4n}
+%        \norm{\mu_{I_+}-\mu_{I_-}}_V^2.
+% \]
+% Summing over $d=0,\ldots,q-1$ cancels the variance sums at all
+% intermediate generations. The initial generation consists of the
+% whole block with weight one, and the final generation consists of
+% singletons, whose variances vanish. This gives
+% \begin{align}
+%   \mathcal V(\{1,\ldots,n\})
+%   &=\sum_{d=0}^{q-1}\sum_{I\in\mathcal D_d}
+%       \frac{|I|}{4n}\norm{\mu_{I_+}-\mu_{I_-}}_V^2\notag\\
+%   &\ge\frac{qM^2D^2}{1024K^6}.
+%     \label{eq:pg-variance-lower}
+% \end{align}
+% For the last inequality, \eqref{eq:pg-mean-separation} gives
+% \[
+%   \frac{|I|}{4n}\norm{\mu_{I_+}-\mu_{I_-}}_V^2
+%   \ge\frac{|I|}{n}\frac{M^2D^2}{1024K^6}.
+% \]
+% At each generation the blocks partition $\{1,\ldots,n\}$, so their
+% weights satisfy $\sum_{I\in\mathcal D_d}|I|/n=1$. Each generation
+% therefore contributes at least $M^2D^2/(1024K^6)$, and there are
+% $q$ generations.
+% If $q=0$, the sum is empty and the same inequality holds.
+
+% On the other hand, the arithmetic mean minimizes the sum of squared
+% distances in a Hilbert space. Equivalently, for every $w\in V$,
+% \[
+%   \frac1n\sum_{s=1}^n\norm{z_{t_s}-w}_V^2
+%   =\mathcal V(\{1,\ldots,n\})
+%    +\norm{\mu_{\{1,\ldots,n\}}-w}_V^2.
+% \]
+% Taking $w=z_{t_1}$ and using~\eqref{eq:pg-residual-bounds} gives
+% $\mathcal V(\{1,\ldots,n\})\le M^2D^2$.
+% Together with~\eqref{eq:pg-variance-lower}, this implies
+% \[
+%   q\le1024K^6,\qquad m<2^{q+1}\le2^{1024K^6+1}=M_K,
+% \]
+% which proves~\eqref{eq:pg-count}.
+% \end{proof}
+
+% \subsection{A finite power-variation estimate}
+% The bound on large displacements yields a recursive partition into a
+% uniformly bounded number of blocks of smaller diameter. Crossing
+% increments are kept separate from the increments inside these blocks.
+
+% \begin{proposition}[Finite power variation]\label{prop:pg-variation}
+% Set
+% \[
+%   p_K:=1024K^6+2,\qquad 2^{p_K}=2M_K.
+% \]
+% For every $0\le a\le b$, one has
+% \begin{equation}\label{eq:pg-variation}
+%   \sum_{j=a}^{b-1}\norm{u_{j+1}-u_j}_U^{p_K}
+%   \le(2D_{a,b})^{p_K}.
+% \end{equation}
+% The sum is understood to be zero when $a=b$.
+% \end{proposition}
+
+% \begin{proof}
+% Write $p=p_K$ and argue by strong induction on the number $b-a$
+% of increments. If $a=b$, the sum is empty and the assertion holds.
+% If $b=a+1$, there is a single increment and
+% \[
+%   \norm{u_{a+1}-u_a}_U^p=D_{a,a+1}^p\le(2D_{a,a+1})^p.
+% \]
+% Now fix $b\ge a+2$ and suppose that~\eqref{eq:pg-variation} holds on
+% every interval with fewer than $b-a$ increments, with the same
+% exponent $p$. Put $D=D_{a,b}$. If $D=0$, all points in the block
+% coincide and every increment vanishes. We may therefore assume
+% $D>0$.
+
+% We partition the block into smaller blocks on which the induction
+% hypothesis applies. Start at $s_1=a$. Having chosen
+% $s_r$, choose $s_{r+1}$ to be the first later index $t\le b$ for
+% which $\norm{u_t-u_{s_r}}_U>D/4$, if such an index exists, and stop
+% otherwise. Let $s_1<\cdots<s_m$ be the resulting indices and set
+% $s_{m+1}=b+1$ for the purpose of defining the consecutive blocks
+% \[
+%   I_r:=\{s_r,\ldots,s_{r+1}-1\},\qquad
+%   D_r:=\diam_U\{u_i:i\in I_r\},\quad 1\le r\le m.
+% \]
+% These blocks are nonempty, disjoint, and cover $\{a,\ldots,b\}$.
+% For $r<m$, the minimality of $s_{r+1}$ ensures that every point
+% in $I_r$ is within $D/4$ of $u_{s_r}$. The same statement holds
+% for the last block by the stopping rule. Thus, for $i,j\in I_r$,
+% \[
+%   \norm{u_i-u_j}_U
+%   \le\norm{u_i-u_{s_r}}_U+\norm{u_j-u_{s_r}}_U
+%   \le D/2,
+% \]
+% and hence $D_r\le D/2$. Consecutive starting points satisfy
+% $\norm{u_{s_{r+1}}-u_{s_r}}_U>D/4$, so
+% Lemma~\ref{lem:pg-oscillation} gives $m<M_K$.
+% There are at least two blocks: if $m=1$, then $D=D_1\le D/2$,
+% contrary to $D>0$.
+
+% Since there are at least two nonempty blocks, each $I_r$ contains
+% at most $b-a$ indices. Its number of internal increments is
+% $s_{r+1}-s_r-1<b-a$, so the induction hypothesis gives
+% \[
+%   \sum_{j=s_r}^{s_{r+1}-2}\norm{u_{j+1}-u_j}_U^p
+%   \le(2D_r)^p\le D^p,\qquad 1\le r\le m.
+% \]
+% If $I_r$ is a singleton, this is the empty sum and the same bound
+% holds. The increments not included in these internal sums are
+% exactly those crossing a block boundary: they join $u_{s_r-1}$
+% to $u_{s_r}$ for $2\le r\le m$. Both endpoints belong to the
+% original block, so each of these $m-1$ increments has norm at
+% most $D$. Decomposing the sum accordingly, we obtain
+% \begin{align*}
+%   \sum_{j=a}^{b-1}\norm{u_{j+1}-u_j}_U^p
+%   &=\sum_{r=1}^m\sum_{j=s_r}^{s_{r+1}-2}
+%        \norm{u_{j+1}-u_j}_U^p
+%     +\sum_{r=2}^m\norm{u_{s_r}-u_{s_r-1}}_U^p\\
+%   &\le\sum_{r=1}^m(2D_r)^p+(m-1)D^p\\
+%   &\le mD^p+(m-1)D^p=(2m-1)D^p\\
+%   &\le2M_KD^p=2^pD^p=(2D)^p.
+% \end{align*}
+% The last line uses $m<M_K$ and the choice $2^p=2M_K$.
+% This closes the induction. and thus the proof.
+% \end{proof}
+
+% \section{The finite-window square-sum estimate}\label{sec:proof}
+
+% \begin{proof}[Proof of Theorem~\ref{thm:petrov}]
+% Discrete well-posedness follows from Lemma~\ref{lem:pg-wellposed}.
+% Fix $\ell\ge0$ and $N\ge1$, and put $a=\ell$, $b=\ell+N$,
+% $D=D_{a,b}$, and $p=p_K$. Since $p>2$, H\"older's inequality,
+% \eqref{eq:pg-variation}, and~\eqref{eq:pg-diameter-bound} give
+% \begin{align*}
+%   \sum_{j=\ell}^{\ell+N-1}\norm{u_{j+1}-u_j}_U^2
+%   &\le N^{1-2/p}
+%        \left(\sum_{j=\ell}^{\ell+N-1}
+%                     \norm{u_{j+1}-u_j}_U^p\right)^{2/p}\\
+%   &\le4D^2N^{1-2/p}\\
+%   &\le16K^2N^{1-2/p}\norm{u-u_\ell}_U^2.
+% \end{align*}
+% Finally, $2/p=(512K^6+1)^{-1}=\delta_K$, proving
+% \eqref{eq:pg-quasi-orthogonality}.
+% \end{proof}
+
+% \begin{remark}[Equal trial and test spaces]
+% Let $U=V=H$ be a real Hilbert space, let $U_j=V_j$ be nested
+% finite-dimensional linear subspaces, and take $T_j=\mathrm{id}_{U_j}$.
+% Suppose that $A:H\to H^\star$ satisfies
+% \[
+%   \dual{Ax-Ay}{x-y}\ge\alpha\norm{x-y}^2,
+%   \qquad
+%   \norm{Ax-Ay}_{H^\star}\le L\norm{x-y},
+%   \qquad x,y\in H,
+% \]
+% where $0<\alpha\le L$. Then the map assumptions hold with $M=1$,
+% and compatibility follows from nestedness. The theorem therefore
+% applies to the Galerkin equations with $K=L/\alpha$ and gives
+% \[
+%   \sum_{j=\ell}^{\ell+N-1}\norm{u_{j+1}-u_j}^2
+%   \le16K^2N^{1-\delta_K}\norm{u-u_\ell}^2.
+% \]
+% \end{remark}
+
+% \begin{remark}[Closed subspaces]
+% Finite dimensionality is not used in the estimates. The same theorem
+% holds for nested sequences of closed linear subspaces of $U$ and $V$
+% under the stated assumptions on the maps $T_j$. The contraction
+% argument gives discrete well-posedness on each such test space, and
+% all subsequent arguments involve only finitely many approximants at
+% a time.
+% \end{remark}
+
+% \begin{remark}[Constants and scope]
+% The constants are chosen for a simple explicit argument and are not
+% asserted to be optimal. Since $1-\delta_K>0$, the estimate does not
+% by itself give a bound on the infinite sum of squared increments.
+% No potential, derivative, or symmetry assumption on $A$ enters the
+% proof.
+% \end{remark}
+% \begin{remark}[Assumptions restricted to solutions]
+% \label{rem:pg-solution-sequence}
+% For the quasi-orthogonality estimate in Theorem~\ref{thm:petrov},
+% the Lipschitz and strong monotonicity bounds need only hold uniformly
+% on the solutions entering the argument. More precisely, suppose that
+% $u\in U$ with $Au=f$ and a sequence $u_j\in U_j$ satisfying
+% \eqref{eq:pg-equations} are already given. Retain nestedness of the
+% trial and test spaces and compatibility~\eqref{eq:pg-compatibility},
+% and denote the set of these solutions by
+% $S:=\{u\}\cup\{u_j:j\ge0\}$.
+% It suffices that there exist finite positive constants
+% $L_S,M_S,\alpha_S$ such that, for every $i,j\ge0$,
+% \begin{align*}
+%   \norm{Au_i-Au_j}_{V^\star}
+%   &\le L_S\norm{u_i-u_j}_U,\\
+%   \norm{Au-Au_i}_{V^\star}
+%   &\le L_S\norm{u-u_i}_U,
+% \end{align*}
+% and, for every $b\ge0$ and $0\le i,j\le b$,
+% \begin{align*}
+%   \norm{T_bu_i-T_bu_j}_V
+%   &\le M_S\norm{u_i-u_j}_U,\\
+%   \dual{Au_i-Au_j}{T_bu_i-T_bu_j}
+%   &\ge\alpha_S\norm{u_i-u_j}_U^2.
+% \end{align*}
+% The constants must be independent of $b,i,j$; in particular, the
+% bounds include pairs of discrete solutions from different levels.
+% With
+% \[
+%   K_S:=\max\{1,L_SM_S/\alpha_S\},\qquad
+%   \delta_S:=\frac1{512K_S^6+1},
+% \]
+% the same proof gives
+% \[
+%   \sum_{j=\ell}^{\ell+N-1}\norm{u_{j+1}-u_j}_U^2
+%   \le16K_S^2N^{1-\delta_S}\norm{u-u_\ell}_U^2,
+%   \qquad \ell\in\Nzero,\ N\in\N.
+% \]
+% \end{remark}
+
+\section{Application to nonlinear ODEs}\label{sec:examples}
+\noindent
+In the following we introduce continuous Petrov--Galerkin time stepping for ordinary differential equations. This example showcases, in which applications the abstract Theorem \ref{thm:qo} is particularly useful. 
+
+\noindent For a bounded interval $[t_0,t_{\rm end}] \subset \R$, we consider the initial value problem
+\begin{align*}
+    y'(t)&=F(t,y(t))\quad\text{for every }t\in [t_0,t_{\rm end}],\\
+     y(t_0)&=x_0.
+\end{align*}
+The right-hand side $F:[t_0,t_{\rm end}]\times\R^d\to\R^d$ is supposed to be continuous in its first
+argument and Lipschitz continuous in its second, i.e. for some $L_F>0$,
+\begin{equation}\label{eq:ode-weighted-lipschitz}
+  |F(t,a)-F(t,b)|\le L_F|a-b|,
+  \qquad a,b\in\R^d, \quad t \in [t_0,t_{\rm end}].
+\end{equation}
+
+\subsection{Continuous Petrov--Galerkin time stepping}
+\noindent
+Let $(\mathcal I_j)_{j\ge0}$ be a sequence of partitions of $[t_0,t_{\rm end}]$ into finitely many intervals, where each partition $\mathcal I_{j+1}$ is obtained from $\mathcal I_j$ by subdividing some of its intervals. Such sequences are generated, e.g., by adaptive step-size algorithms. We denote the nodes of the initial partition $\mathcal I_0$ by $t_0=t_0^0<t_1^0<\cdots<t_m^0=t_{\rm end}$ and its maximal step size by
+\[
+  \tau_0:=\max_{1\le n\le m}(t_n^0-t_{n-1}^0).
+\]
+We require the initial partition to be fine enough in the sense that
+\begin{equation}\label{eq:ode-step}
+  L_F\tau_0\le\frac{\log 2}{4}.
+\end{equation}
+
+\noindent
+We work with the spaces
+\[
+  U:=\{w\in H^1(t_0,t_{\rm end};\R^d):w(t_0)=0\},
+  \qquad V:=L^2(t_0,t_{\rm end};\R^d),
+\]
+whose norms are specified below. For a fixed polynomial degree $p\in\N$, the trial and test spaces are
+\begin{align*}
+  U_j&:=\{w\in U:w|_I\in\mathcal P^p(I;\R^d)
+                         \text{ for every }I\in\mathcal I_j\},\\
+  V_j&:=\{v\in V:v|_I\in\mathcal P^{p-1}(I;\R^d)
+                         \text{ for every }I\in\mathcal I_j\}.
+\end{align*}
+Hence, the trial functions are continuous piecewise polynomials of degree $p$, whereas the test functions are piecewise polynomials of degree $p-1$ which are allowed to jump at the nodes. Both sequences of spaces are nested and finite dimensional. The continuous Petrov--Galerkin method seeks an approximation $y_j$ of $y$ such that
+\begin{equation}\label{eq:ode-cg}
+  y_j-x_0\in U_j,\qquad
+  \int_{t_0}^{t_{\rm end}}\bigl(y_j'(t)-F(t,y_j(t))\bigr)\cdot v_j(t)\,dt=0
+  \quad\text{for every }v_j\in V_j.
+\end{equation}
+
+\subsection{Application of the abstract result}
+\noindent
+In order to apply Theorem~\ref{thm:qo}, we have to choose the operator $A$, the norms on $U$ and $V$, and the map $T$. We incorperate the initial value in the right-hand side and define $A:U\to V^\star$ by
+\begin{equation}\label{eq:ode-operator}
+  \dual{Au}{v}
+  :=\int_{t_0}^{t_{\rm end}}\bigl(u'(t)-F(t,x_0+u(t))\bigr)\cdot v(t)\,dt.
+\end{equation}
+The assumptions on $F$ imply that $t\mapsto F(t,x_0+u(t))$ is continuous and bounded for every $u\in U$, so $A$ is well defined. By the Picard--Lindel\"of theorem, the initial value problem has a unique solution $y\in C^1([t_0,t_{\rm end}];\R^d)$. Thus, $u:=y-x_0\in U$ satisfies $Au=0$, and $u_j:=y_j-x_0\in U_j$ solves the Petrov--Galerkin equations~\eqref{eq:discrete} with $f=0$ if and only if $y_j$ solves~\eqref{eq:ode-cg}.
+
+\noindent
+The obvious choice of the remaining ingredients is to equip $U$ with $\norm{w'}_{L^2(t_0,t_{\rm end})}$, to equip $V$ with the $L^2$-norm, and to set $Tw:=w'$. This satisfies $T(U_j)=V_j$. However, for $x,z\in U$ and $w:=x-z$, the Lipschitz bound~\eqref{eq:ode-weighted-lipschitz} and the Poincar\'e inequality only show
+\[
+  \dual{Ax-Az}{w'}
+  \ge\norm{w'}_{L^2(t_0,t_{\rm end})}^2-L_F\norm{w}_{L^2(t_0,t_{\rm end})}\norm{w'}_{L^2(t_0,t_{\rm end})}
+  \ge\Bigl(1-\frac{L_F(t_{\rm end}-t_0)}{\sqrt2}\Bigr)\norm{w'}_{L^2(t_0,t_{\rm end})}^2.
+\]
+This yields the strong monotonicity~\eqref{eq:pg-monotonicity} only for short time intervals with $L_F(t_{\rm end}-t_0)<\sqrt2$. To avoid this restriction, we use exponentially decaying weights, first introduced by \cite{bielecki}, as is common for Gronwall-type arguments.
+
+\noindent
+We define the piecewise constant weight
+\begin{equation}\label{eq:ode-weight}
+  \omega(t):=e^{-8L_F(t_{n-1}^0-t_0)}
+  \qquad\text{for }t_{n-1}^0<t<t_n^0,\quad n=1,\ldots,m.
+\end{equation}
+The weight is fixed on the initial partition $\mathcal I_0$ and does not depend on the level $j$. We equip $U$ and $V$ with the norms
+\begin{equation}\label{eq:ode-norms}
+  \norm{w}_U^2:=\int_{t_0}^{t_{\rm end}}\omega(t)|w'(t)|^2\,dt,
+  \qquad
+  \norm{v}_V^2:=\int_{t_0}^{t_{\rm end}}\omega(t)^{-1}|v(t)|^2\,dt.
+\end{equation}
+Since $e^{-8L_F(t_{\rm end}-t_0)}\le\omega\le1$, these norms are equivalent to the standard norms and $U$, $V$ are Hilbert spaces. Moreover, for $r\in L^2(t_0,t_{\rm end};\R^d)$, the functional $v\mapsto\int_{t_0}^{t_{\rm end}}r\cdot v\,dt$ satisfies
+\begin{equation}\label{eq:ode-dual-norm}
+  \norm{r}_{V^\star}^2=\int_{t_0}^{t_{\rm end}}\omega(t)|r(t)|^2\,dt.
+\end{equation}
+
+\noindent
+The gain of the weighted norms is a Poincar\'e inequality whose constant does not depend on the length of the time interval. To see this, let $\rho(t):=e^{-8L_F(t-t_0)}$. For $w\in U$, integration by parts and $w(t_0)=0$ give
+\[
+  \int_{t_0}^{t_{\rm end}}\rho\,w\cdot w'\,dt
+  =\frac12\rho(t_{\rm end})|w(t_{\rm end})|^2
+     +4L_F\int_{t_0}^{t_{\rm end}}\rho|w|^2\,dt
+  \ge4L_F\int_{t_0}^{t_{\rm end}}\rho|w|^2\,dt.
+\]
+The Cauchy--Schwarz inequality therefore implies
+\[
+  \Bigl(\int_{t_0}^{t_{\rm end}}\rho|w|^2\,dt\Bigr)^{1/2}
+  \le\frac{1}{4L_F}\Bigl(\int_{t_0}^{t_{\rm end}}\rho|w'|^2\,dt\Bigr)^{1/2}.
+\]
+On every interval of $\mathcal I_0$, there holds $\rho\le\omega\le e^{8L_F\tau_0}\rho$. Together with $e^{4L_F\tau_0}\le2$, which is the step-size restriction~\eqref{eq:ode-step}, we obtain
+\begin{equation}\label{eq:ode-poincare}
+  \Bigl(\int_{t_0}^{t_{\rm end}}\omega|w|^2\,dt\Bigr)^{1/2}
+  \le\frac{e^{4L_F\tau_0}}{4L_F}
+          \Bigl(\int_{t_0}^{t_{\rm end}}\omega|w'|^2\,dt\Bigr)^{1/2}
+  \le\frac{1}{2L_F}\norm{w}_U
+  \qquad\text{for every }w\in U.
+\end{equation}
+
+\noindent
+With this, we verify the assumptions of Theorem~\ref{thm:qo}. Let $x,z\in U$ and $w:=x-z$. The identity~\eqref{eq:ode-dual-norm}, the Lipschitz bound~\eqref{eq:ode-weighted-lipschitz}, and the weighted Poincar\'e inequality~\eqref{eq:ode-poincare} show
+\[
+  \norm{Ax-Az}_{V^\star}
+  \le\norm{w}_U+L_F\Bigl(\int_{t_0}^{t_{\rm end}}\omega|w|^2\,dt\Bigr)^{1/2}
+  \le\frac32\norm{x-z}_U,
+\]
+which is the Lipschitz continuity~\eqref{eq:pg-lipschitz} with $L=3/2$. We choose
+\[
+  T:U\to V,\qquad Tw:=\omega w'.
+\]
+The definition of the norms~\eqref{eq:ode-norms} immediately gives $\norm{Tx-Tz}_V=\norm{x-z}_U$, which is~\eqref{eq:pg-map-bound} with $M=1$. Furthermore, every partition $\mathcal I_j$ is a refinement of $\mathcal I_0$, so $\omega$ is constant on each interval of $\mathcal I_j$. Therefore, $\omega w'\in V_j$ for all $w\in U_j$, and every $v\in V_j$ is the image of $w(t):=\int_{t_0}^t\omega^{-1}v\,ds\in U_j$. This shows surjectivity
+\[
+  T(U_j)=V_j\qquad\text{for every }j\ge0,
+\]
+ Finally, \eqref{eq:ode-weighted-lipschitz} and~\eqref{eq:ode-poincare} show
+\begin{align*}
+  \dual{Ax-Az}{Tx-Tz}
+  &=\int_{t_0}^{t_{\rm end}}\omega\bigl(w'-F(t,x_0+x)+F(t,x_0+z)\bigr)\cdot w'\,dt\\
+  &\ge\norm{w}_U^2
+       -L_F\Bigl(\int_{t_0}^{t_{\rm end}}\omega|w|^2\,dt\Bigr)^{1/2}\norm{w}_U\\
+  &\ge\frac12\norm{x-z}_U^2,
+\end{align*}
+which is the strong monotonicity~\eqref{eq:pg-monotonicity} with $\alpha=1/2$.
+
+\noindent
+Altogether, the assumption \eqref{eq:pg-lipschitz}--\eqref{eq:pg-monotonicity} are satisfied with
+\[
+  L=\frac32,\qquad M=1,\qquad
+  \alpha=\frac12.
+\]
+Theorem~\ref{thm:qo} with $f=0$ shows that the continuous Petrov--Galerkin equations~\eqref{eq:ode-cg} have a unique solution $y_j$ on every level and that, for every $\ell\in\Nzero$ and $n\in\N$,
+\[
+  \sum_{j=\ell}^{\ell+n-1}\norm{y_{j+1}-y_j}_U^2
+  \lesssim n^{1-\delta}\norm{y_{\ell+n}-y_\ell}_U^2
+  \qquad\text{with}\qquad
+  \delta \in (0,1).
+\]
+It remains to return to the standard norm. Since $w(t_0)=0$ implies $\norm{w}_{L^2(t_0,t_{\rm end})}^2\le\frac12(t_{\rm end}-t_0)^2\norm{w'}_{L^2(t_0,t_{\rm end})}^2$, the bounds on the weight show
+\[
+  \norm{w}_U^2\le\norm{w}_{H^1(t_0,t_{\rm end})}^2
+  \le\Bigl(1+\frac{(t_{\rm end}-t_0)^2}{2}\Bigr)e^{8L_F(t_{\rm end}-t_0)}\norm{w}_U^2
+  \qquad\text{for every }w\in U.
+\]
+We conclude that, for every $\ell\in\Nzero$ and $n\in\N$,
+\begin{equation}\label{eq:ode-qo}
+  \sum_{j=\ell}^{\ell+n-1}\norm{y_{j+1}-y_j}_{H^1(t_0,t_{\rm end})}^2
+  \lesssim n^{1-\delta}\norm{y_{\ell+n}-y_\ell}_{H^1(t_0,t_{\rm end})}^2.
+\end{equation}
+The implied constant and $\delta$ as well as the step-size restriction~\eqref{eq:ode-step} are independent of the polynomial degree $p$, the dimension $d$, and the partitions $\mathcal I_j$.
+
+\subsection{Comparison with existing results}
+\noindent
+A quasi-orthogonality estimate for the method~\eqref{eq:ode-cg} was previously shown in~\cite{adaptive_ode}. That work considers an adaptive algorithm which is steered by a residual error estimator $\eta_j$ and bisects the time steps selected by D\"orfler marking.  As a key ingredient in their analysis, \cite[Lemma~12]{adaptive_ode} proves the following: Suppose that, in addition to~\eqref{eq:ode-weighted-lipschitz}, the right-hand side $F$ is continuously differentiable with Lipschitz continuous Jacobian, and that the initial partition $\mathcal I_0$ is sufficiently fine. Then, there exist $\varepsilon>0$, $1>\delta>0$, and $C(n)=\mathcal O(n^{1-\delta})$ such that
+\[
+  \sum_{j=\ell}^{\ell+n-1}\Bigl(\norm{y_{j+1}-y_j}_{H^1(t_0,t_{\rm end})}^2-\varepsilon\,\eta_j^2\Bigr)
+  \le C(n)\norm{y-y_\ell}_{H^1(t_0,t_{\rm end})}^2
+  \qquad\text{for all }\ell,n\in\N.
+\]
+The proof linearizes the initial value problem around the exact solution $y$ and shows that the continuous Petrov--Galerkin discretization of the linearized problem is uniformly inf-sup stable on sufficiently fine partitions. Thus, the linear result of~\cite{infsup} applies to the linearized problem. The difference between the discrete solutions of the nonlinear and the linearized problem is quadratic in the error $\norm{y-y_j}_{H^1(t_0,t_{\rm end})}$ and is absorbed by the term $\varepsilon\,\eta_j^2$.
+
+\noindent
+The estimate~\eqref{eq:ode-qo} differs from this result in the following ways. First, we apply Theorem~\ref{thm:qo} directly to the nonlinear operator~\eqref{eq:ode-operator}. No linearization is necessary, and the Lipschitz continuity~\eqref{eq:ode-weighted-lipschitz} is the only assumption on $F$, whereas the Taylor expansion in~\cite{adaptive_ode} requires the differentiability of $F$. Second, \eqref{eq:ode-qo} does not contain an error estimator and holds for arbitrary nested refinements of an initial partition satisfying \eqref{eq:ode-step}. In particular, it implies the estimate of~\cite[Lemma~12]{adaptive_ode} with $\varepsilon=0$. Third, the step-size restriction~\eqref{eq:ode-step} is explicit and depends only on the Lipschitz constant $L_F$.
+\printbibliography
+
+\end{document}
