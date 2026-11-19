@@ -9,7 +9,7 @@ and Lean source files are unchanged from the completed formalization.
 | `Autoformalization.PetrovGalerkin.maximalVariance` | `variance:value-definition` | [source](../Autoformalization/PetrovGalerkin/Frozen/Variance.lean) |
 | `Autoformalization.PetrovGalerkin.maximalVariance_characterization` | `variance:characterization` | [source](../Autoformalization/PetrovGalerkin/Frozen/VarianceCharacterization.lean) |
 
-The source is [the manuscript](../sources/main.tex), SHA-256
+The source is [the archived manuscript](../sources/versions/main-2026-11-18.tex), SHA-256
 `be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372`.
 These source groups are unsplit. The theorem range is natural `n ≥ 1`, and
 variance is defined on nonempty finite index sets. No statement changes are

@@ -17,7 +17,7 @@
       },
       "source": {
         "revision": "sha256:be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372",
-        "range": "sources/main.tex:50-82"
+        "range": "sources/versions/main-2026-11-18.tex:50-82"
       },
       "contract": {
         "id": "lem:pg-wellposed",
@@ -55,7 +55,7 @@
       },
       "source": {
         "revision": "sha256:be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372",
-        "range": "sources/main.tex:50-76,157-163"
+        "range": "sources/versions/main-2026-11-18.tex:50-76,157-163"
       },
       "contract": {
         "id": "thm:qo",
@@ -93,7 +93,7 @@
       },
       "source": {
         "revision": "sha256:be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372",
-        "range": "sources/main.tex:170-180"
+        "range": "sources/versions/main-2026-11-18.tex:170-180"
       },
       "contract": {
         "id": "variance:max-value",
@@ -131,7 +131,7 @@
       },
       "source": {
         "revision": "sha256:be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372",
-        "range": "sources/main.tex:170-180"
+        "range": "sources/versions/main-2026-11-18.tex:170-180"
       },
       "contract": {
         "id": "variance:value-definition",
@@ -160,7 +160,7 @@
       },
       "source": {
         "revision": "sha256:be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372",
-        "range": "sources/main.tex:170-180"
+        "range": "sources/versions/main-2026-11-18.tex:170-180"
       },
       "contract": {
         "id": "variance:characterization",
@@ -186,6 +186,92 @@
         "export": "Autoformalization.PetrovGalerkin.Provider.maximalVariance_characterization"
       },
       "prefix_sha256": "ccdddea784ce7436205d0a375dbb9cfb464a489e0873099896eb887220739fed",
+      "suffix_sha256": "7f80d6570f31b4fc79525e496294398f56b8dbdcf1a576f3d4196dbfac092485",
+      "draft_allowlist": {
+        "frozen_paths": [],
+        "audit_paths": []
+      }
+    },
+    {
+      "id": "hs_qo_v1",
+      "kind": "theorem",
+      "author_approval": {
+        "approved_by": "user",
+        "approved_at": "2026-11-19",
+        "approval_ref": "docs/revision-author-approval.md",
+        "approval_version": "1"
+      },
+      "source": {
+        "revision": "sha256:3a26b8d6e731720e84b1b739814f707a8cfd30c8a6344628eaa68c722d7894ff",
+        "range": "sources/main.tex:47-79"
+      },
+      "contract": {
+        "id": "thm:qo-abstract",
+        "version": "1"
+      },
+      "path": "Autoformalization/HilbertSequence/Frozen/QuasiOrthogonality.lean",
+      "export": "Autoformalization.HilbertSequence.quasi_orthogonality",
+      "implementation": {
+        "module": "Autoformalization.HilbertSequence.Providers.QuasiOrthogonality",
+        "export": "Autoformalization.HilbertSequence.Provider.quasi_orthogonality"
+      },
+      "split_policy": {
+        "source_group": "thm:qo-abstract",
+        "mode": "NOT_SPLIT",
+        "ruling_ref": "docs/revision-author-approval.md"
+      },
+      "abi_sha256": "b5de0f8c8974ed1a07d1c4c7a78f285a3e5d14e2f8cccaaae8d46d7d80fdff67",
+      "definition_closure": [
+        {
+          "path": "Autoformalization/PetrovGalerkin/Frozen/Variance.lean",
+          "sha256": "ae999bcad2b9f1927312c1ab143acaa8d0563bb8ff7e8a6b92cd5123f8d665a6"
+        }
+      ],
+      "state": "SEALED",
+      "prefix_sha256": "c53d8ac66093086937ec3ddabbd6b5b8dd6faac00f5374c26465dc6165b23d75",
+      "suffix_sha256": "c12fdf584d18e9c69ef7258285b5109e4253237150385135a5f0a181f5d1b998",
+      "draft_allowlist": {
+        "frozen_paths": [],
+        "audit_paths": []
+      }
+    },
+    {
+      "id": "pg_assumptions_v1",
+      "kind": "theorem",
+      "author_approval": {
+        "approved_by": "user",
+        "approved_at": "2026-11-19",
+        "approval_ref": "docs/revision-author-approval.md",
+        "approval_version": "1"
+      },
+      "source": {
+        "revision": "sha256:3a26b8d6e731720e84b1b739814f707a8cfd30c8a6344628eaa68c722d7894ff",
+        "range": "sources/main.tex:130-162,218-248"
+      },
+      "contract": {
+        "id": "sec:pg-assumptions",
+        "version": "1"
+      },
+      "path": "Autoformalization/PetrovGalerkin/Frozen/Assumptions.lean",
+      "export": "Autoformalization.PetrovGalerkin.petrov_galerkin_assumptions",
+      "implementation": {
+        "module": "Autoformalization.PetrovGalerkin.Providers.Assumptions",
+        "export": "Autoformalization.PetrovGalerkin.Provider.petrov_galerkin_assumptions"
+      },
+      "split_policy": {
+        "source_group": "sec:pg-assumptions",
+        "mode": "NOT_SPLIT",
+        "ruling_ref": "docs/revision-author-approval.md"
+      },
+      "abi_sha256": "91098e9a228616260daea6e22596680b9010bdc37cfbb76d4ef7a807e0bbdcd3",
+      "definition_closure": [
+        {
+          "path": "Autoformalization/PetrovGalerkin/Frozen/Variance.lean",
+          "sha256": "ae999bcad2b9f1927312c1ab143acaa8d0563bb8ff7e8a6b92cd5123f8d665a6"
+        }
+      ],
+      "state": "SEALED",
+      "prefix_sha256": "2cd969ecfa58082064e9cdbb4af7a9f247e461cf27faa6c2f02a542f040aec86",
       "suffix_sha256": "7f80d6570f31b4fc79525e496294398f56b8dbdcf1a576f3d4196dbfac092485",
       "draft_allowlist": {
         "frozen_paths": [],

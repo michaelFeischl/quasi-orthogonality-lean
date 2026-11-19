@@ -9,7 +9,7 @@ and Lean source files are unchanged from the completed formalization.
 | `Autoformalization.PetrovGalerkin.exists_unique_discrete_solution` | `lem:pg-wellposed` | [source](../Autoformalization/PetrovGalerkin/Frozen/DiscreteWellposedness.lean) |
 | `Autoformalization.PetrovGalerkin.quasi_orthogonality` | `thm:qo` | [source](../Autoformalization/PetrovGalerkin/Frozen/QuasiOrthogonality.lean) |
 
-The source is [the manuscript](../sources/main.tex), SHA-256
+The source is [the archived manuscript](../sources/versions/main-2026-11-18.tex), SHA-256
 `be9c5173799359b30b4e452145e49ca98f5368a07bbe351d906c1a452b15f372`.
 These source groups are unsplit. The theorem range is natural `n ≥ 1`, and
 variance is defined on nonempty finite index sets. No statement changes are

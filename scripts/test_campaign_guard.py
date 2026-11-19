@@ -49,9 +49,9 @@ class GuardMutations(unittest.TestCase):
     def catches(self, expected):
         self.assertIn(expected, self.errors())
 
-    def draft_provider(self):
+    def draft_provider(self, anchor_id='pg_qo_v1'):
         """Create a draft fixture independently of live campaign proof status."""
-        anchor = next(a for a in self.manifest['anchors'] if a['id'] == 'pg_qo_v1')
+        anchor = next(a for a in self.manifest['anchors'] if a['id'] == anchor_id)
         anchor['state'] = 'DRAFT_SORRY'
         path = self.root / anchor['path']
         prefix, rest = path.read_text().split('-- FROZEN_ANCHOR_PROOF_BEGIN\n', 1)
@@ -136,9 +136,47 @@ class GuardMutations(unittest.TestCase):
         self.catches('import outside pinned external packages')
 
     def test_source_drift(self):
-        with (self.root / 'sources/main.tex').open('a') as handle:
-            handle.write('\n% changed source\n')
-        self.catches('source revision drift')
+        pinned_sources = sorted({
+            anchor['source']['range'].split(':', 1)[0]
+            for anchor in self.manifest['anchors']
+        })
+        self.assertTrue(pinned_sources)
+        for pinned_source in pinned_sources:
+            with self.subTest(source=pinned_source):
+                path = self.root / pinned_source
+                original = path.read_bytes()
+                try:
+                    path.write_bytes(original + b'\n% changed source\n')
+                    self.catches('source revision drift: ' + pinned_source)
+                finally:
+                    path.write_bytes(original)
+                self.assertEqual('', self.errors())
+
+    def test_revision_draft_frozen_imports_rejected(self):
+        for anchor_id in ('hs_qo_v1', 'pg_assumptions_v1'):
+            with self.subTest(anchor=anchor_id):
+                self.draft_provider(anchor_id)
+                anchor = next(a for a in self.manifest['anchors'] if a['id'] == anchor_id)
+                module = anchor['path'].removesuffix('.lean').replace('/', '.')
+                path = self.root / 'Autoformalization/Consumer.lean'
+                try:
+                    self.write('Autoformalization/Consumer.lean', 'module\nimport ' + module + '\n')
+                    self.catches(anchor_id + ': DRAFT_SORRY imported directly or transitively')
+                finally:
+                    path.unlink()
+                self.assertEqual('', self.errors())
+
+    def test_draft_provider_cannot_consume_other_draft_provider(self):
+        first = self.draft_provider('hs_qo_v1')
+        second = self.draft_provider('pg_assumptions_v1')
+        first_path = self.root / (first.replace('.', '/') + '.lean')
+        original = first_path.read_bytes()
+        try:
+            first_path.write_text('module\nimport ' + second + '\n')
+            self.catches('pg_assumptions_v1: DRAFT provider imported directly or transitively')
+        finally:
+            first_path.write_bytes(original)
+        self.assertEqual('', self.errors())
 
     def test_pin_drift(self):
         (self.root / 'lean-toolchain').write_text('leanprover/lean4:nightly\n')

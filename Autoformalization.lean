@@ -14,3 +14,5 @@ public import Autoformalization.PetrovGalerkin.DyadicAggregation
 public import Autoformalization.PetrovGalerkin.PGVarianceBounds
 public import Autoformalization.PetrovGalerkin.VarianceReduction
 public import Autoformalization.PetrovGalerkin.Frozen.QuasiOrthogonality
+public import Autoformalization.HilbertSequence.Frozen.QuasiOrthogonality
+public import Autoformalization.PetrovGalerkin.Frozen.Assumptions

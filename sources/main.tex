@@ -26,7 +26,8 @@
 \DeclareMathOperator{\diam}{diam}
 \newcommand{\dn}[1]{{\color{orange}#1}}
 
-\title[Nonlinear Galerkin quasi-orthogonality]{Quasi-orthogonality\protect\\
+\title[Quasi-orthogonality
+for strongly monotone Galerkin methods]{Quasi-orthogonality\protect\\
 for strongly monotone Galerkin methods}
 \date{}
 \hypersetup{
@@ -34,19 +35,102 @@ for strongly monotone Galerkin methods}
   pdfkeywords={strong monotonicity, nonlinear Galerkin methods, quasi-orthogonality}
 }
 \author{Michael Feischl and David Niederkofler}
+\thanks{The research for this work was heavily AI supported and we provide a LEAN certificate of Theorem~\ref{thm:qo} under \url{https://github.com/michaelFeischl/quasi-orthogonality-lean}.
+Funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) -- Project-ID 258734477 -- SFB 1173, the Austrian Science Fund (FWF)
+under the special research program Taming complexity in PDE systems (grant SFB F65) as well as projects I6667-N and P36150. This work was also supported by the ERC grant OPTIMAL (grant agreement No. 101125225). }
 \begin{document}
 \begin{abstract}
     Quasi-orthogonality is one of the key ingredients for proofs of optimal convergence rates for adaptive mesh refinement methods~\cite{axioms}. The work~\cite{infsup} proposed a relaxed quasi-orthogonality that follows directly from the inf-sup stability of the underlying problem discretization. The proof uses an intricate connection to the stability of $LU$-factorization of matrices. Recently,~\cite{gantumur} presented a vastly simplified argument based solely on Hilbert space arguments. Building on this idea, we show that also certain nonlinear problems imply quasi-orthogonality directly.
 \end{abstract}
 \maketitle
-\markboth{NONLINEAR GALERKIN QUASI-ORTHOGONALITY}{NONLINEAR GALERKIN QUASI-ORTHOGONALITY}
 
-\section{Setting and main result}
-We consider a
-nonlinear Petrov--Galerkin setting with compatible maps from the trial
-spaces onto the test spaces.
+\section{Main result}
+We consider a Hilbert space $U$ and a finite sequence of elements $u_1,\ldots,u_n\in U$. For each subset $J\subseteq \{1,\ldots,n\}$ and $0\leq \lambda_j\leq 1$ with $\sum_{j\in J}\lambda_j=1$ we define the weighted mean
+\begin{align*}
+    \mu_{J,\lambda}:= \sum_{j\in J}\lambda_j u_j
+\end{align*}:
+and the maximal weighted squared distances (variance)
+\begin{align*}
+     E_J : = \max_{0\leq \lambda_i\leq 1\atop \sum_{j\in J} \lambda_j = 1}\sum_{j\in J}\lambda_j \norm{u_j- \mu_{J,\lambda}}_U^2.
+\end{align*}
+We make the following two assumptions:
+\begin{itemize}
+    \item C\'ea type estimate: There exists $C_{\rm C\'ea}>0$ such that for all $1\leq i\leq j\leq k\leq \ell\leq n$, there holds
+    \begin{align}\label{eq:cea}
+    \norm{u_k-u_j}_U\leq C_{\rm C\'ea}\norm{u_\ell-u_i}_U.
+    \end{align}
+\item Separation: There exists $C_{\rm sep}>0$ such that for all $J\subseteq \{1,\ldots,n\}$, all $v\in {\rm conv}\{u_i\,|\,1\leq i\leq n,\,i\leq J\}$, there holds
+\begin{align}\label{eq:sep}
+        C_{\rm sep}\norm{\mu_{J,\lambda}-v}_U^2 \geq   E_J,
+    \end{align}
+    where $(\lambda_j)_{j\in J}$ is the maximizer of $E_J$.
+\end{itemize}
 
+For such sequences, we can prove a quasi-orthogonality result.
+The main idea of the following proof is to look at the variance (mean squared distance from the center) of different subsets of $u_1,\ldots, u_n$.
+By using the fact that $u_{i+1},\ldots,u_n$ is geometrically separated from $u_1,\ldots, u_i$ for all $1\leq i\leq n$, we will show that combining two disjoint subsets increases the variance by a factor that is slightly larger than two. In Galerkin methods, this separation can often be established by the fact that the residual of the equation is orthogonal to $u_1,\ldots, u_i$ (see Section~\ref{sec:pg} for details).
+Moreover, the variance of subsets of the form $\{i,i+1\}$ is an upper bound for $\norm{u_{i+1}-u_i}_U^2$. Combining both observations allows us to iteratively combine two disjoint sets into larger ones until we reach the full set. This requires roughly $\log_2(n)$ iterations. Since the size grows by more than the factor of two per iteration and the right-hand side constant is the inverse of the growth factor, we obtain the result. 
+\begin{theorem}\label{thm:qo}
+There exists $C>0$ that depends only on the constants $C_{\rm C\'ea}$, and $C_{\rm sep}$ such that
+\begin{align*}
+    \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U\leq C n^{1-\delta} \norm{u_n-u_1}_U^2,
+\end{align*}
+where $\delta := 1-\log_2\max\{\frac32,(\frac12 + \frac{1}{16C_{\rm sep}})^{-1}\}>0$.
+\end{theorem}
+\begin{proof}
+    \textbf{Step 1:} 
+    There holds
+    \begin{align}
+        E_I = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1}\Big(\sum_{i\in I}\lambda_i \norm{u_i}_U^2  - 2\sum_{i\in I}\lambda_i \dual{u_i}{\mu_{I,\lambda}}_U+\norm{\mu_{I,\lambda}}_U^2\Big) = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1} \Big(\sum_{i\in I}\lambda_i \norm{u_i}_U^2  - \norm{\mu_{I,\lambda}}_U^2\Big). 
+    \end{align}
+    Given $I,J\subseteq \{1,\ldots,n\}$ with $I\cap J = \emptyset$ and corresponding maximizers $\lambda_I$ and $\lambda_{J}$, there holds
+    \begin{align}\label{eq:Eest}
+    \begin{split}
+        E_{I\cup J} &\geq  \frac12\Big(\sum_{i\in I}\lambda_{I,i} \norm{u_i}_U^2+\sum_{i\in J}\lambda_{J,i} \norm{u_i}_U^2\Big)-\frac14\norm{\sum_{i\in I}\lambda_{I,i}u_i+\sum_{i\in J}\lambda_{J,i}u_i}_U^2\\
+        &\geq  \frac12\Big(E_I + E_{J}\Big)+\frac14\norm{\sum_{i\in I}\lambda_{I,i}u_i}_U^2+\frac14\norm{\sum_{i\in J}\lambda_{J,i}u_i}_U^2
+        -\frac12 \dual{\sum_{i\in I}\lambda_{I,i}u_i}{\sum_{i\in J}\lambda_{J,i}u_i}_U\\
+        &=
+        \frac12\Big(E_I + E_{J}\Big)+\frac14\norm{\mu_{I,\lambda_I}-\mu_{J,\lambda_{J}}}_U^2.
+        \end{split}
+    \end{align}
+
+    \textbf{Step 2:}    
+    Separation~\eqref{eq:sep} together with~\eqref{eq:Eest} shows for $c = 1/(4C_{\rm sep})$
+    \begin{align}\label{eq:quadest}
+        E_{I\cup J}\geq \frac12\Big(E_I + E_{J}\Big)+cE_{J}.
+    \end{align}
+    If $E_{J}\geq \frac12 E_I$, the above inequality~\eqref{eq:quadest} shows
+    \begin{align*}
+        E_{I\cup J}\geq (\frac{1}{2}+\frac{c}{4})(E_I+E_{J}).
+    \end{align*}
+    If $E_{J}<\frac12 E_I$, we use $E_I \leq E_{I \cup J}$ to also get $(E_I+E_{J})\leq \frac32 E_I\leq \frac32 E_{I\cup J}$.
+    Thus, in both cases we have 
+    \begin{align}\label{eq:reduction}
+    E_I+E_{J}\leq qE_{I\cup J}
+    \end{align}
+    for $q:=\max\{3/2,(1/2+c/4)^{-1}\}<2$.
+
+    \textbf{Step 3}: 
+    There holds for $k=\lfloor\log_2(n-1)\rfloor$ that
+    \begin{align*}
+        \max\Big\{\sum_{i=1}^{2^k} \norm{u_{i+1}-u_i}^2_U, \sum_{i=n-2^k}^{n-1} \norm{u_{i+1}-u_i}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
+    \end{align*}
+    Thus, without loss of generality, we may assume $n-1=2^k$. Moreover, there holds
+    \begin{align*}
+        \max\Big\{\sum_{j=1}^{(n-1)/2} \norm{u_{2j}-u_{2j-1}}^2_U, \sum_{j=1}^{(n-1)/2} \norm{u_{2j+1}-u_{2j}}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
+    \end{align*}
+    Without loss of generality, we assume that the first sum in the maximum above is the larger one and start with $I_j:= \{2j-1,2j\}$ for all $j=1,\ldots,(n-1)/2$. Using~\eqref{eq:reduction}, we may iteratively combine consecutive $I_j$ and $I_{j+1}$ to obtain
+    \begin{align*}
+        \sum_{j=1}^{(n-1)/2}E_{I_j}\leq q^{\log_2(n)} E_{\{1,\ldots,n\}}.
+    \end{align*}
+    Clearly, we have $E_{\{1,\ldots,n\}}\lesssim  \norm{u_n-u_1}_U^2$ and also $E_{I_j}\geq \frac14\norm{u_{2j}-u_{2j-1}}_U^2$.
+    This and $q^{\log_2(n)} = n^{\log_2(q)}$ conclude the proof.
+\end{proof}
+
+\section{Application to non-linear Petrov Galerkin Methods}\label{sec:pg}
 \noindent
+
+We show that the assumptions~\eqref{eq:cea} and~\eqref{eq:sep} are relatively straightforward for a large class of nonlinear Petrov-Galerkin methods.
 Let $U,V$ be real Hilbert spaces. We denote the duality pairing between
 $V^\star$ and $V$ by $\dual{\cdot}{\cdot}$, and equip each subspace occurring in the discussion
 with the norm inherited from its ambient space. Suppose that
@@ -129,19 +213,12 @@ The space $V_j$ is complete, so the contraction principle gives a
 unique fixed point $z$, equivalently a unique solution of $B_jz=f_j$.
 Then $u_j=T_j^{-1}z$ is the unique solution.
 \end{proof}
-% Define the diameter of the solution set by
-% \begin{align*}
-%     D:=\max_{v,v'\in \{u_1,\ldots, u_n,u\}} \norm{v-v'}_U.
-% \end{align*}
-% We define the residual
-% \begin{align*}
-%     r_i := f-Au_i \in V^\star
-% \end{align*}
-% and note
-% \begin{align*}
-%     \norm{r_i}_{V^\star}\leq L\norm{u-u_i}_U\leq LD.
-% \end{align*}
-Clearly, there hold the C\'ea type estimates for all $0\leq i\leq j\leq k\leq \ell\leq n$
+
+
+We show the assumptions~\eqref{eq:cea} and~\eqref{eq:sep} for the sequence $\{Tu_1,\ldots, Tu_n\}\subseteq V$.
+
+\textbf{C\'ea type estimate:}
+We obtain for all $0\leq i\leq j\leq k\leq \ell\leq n$
 \begin{align*}
     \alpha \norm{u_k-u_j}_U^2\leq \dual{Au_k-Au_j}{Tu_k-Tu_j} = \dual{Au_k-Au_j}{Tu_k-Tu_i}\leq LM\norm{u_k-u_j}_U\norm{u_k-u_i}_U
 \end{align*}
@@ -149,102 +226,26 @@ and
 \begin{align*}
     \alpha \norm{u_k-u_i}_U^2\leq \dual{Au_k-Au_i}{Tu_k-Tu_i} = \dual{Au_\ell-Au_i}{Tu_k-Tu_i}\leq LM\norm{u_\ell-u_i}_U\norm{u_k-u_i}_U.
 \end{align*}
-Both estimates can be combined to
-\begin{align*}
-    \norm{u_k-u_j}_U\leq (LM/\alpha)^2 \norm{u_\ell-u_i}_U.
-\end{align*}
-With these ingredients, we proceed to prove the main theorem.
-\begin{theorem}\label{thm:qo}
-There exists $C>0$ that depends only on the constants $L$, $M$, and $\alpha$ such that
-\begin{align*}
-    \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U\leq C n^{1-\delta} \norm{u_n-u_1}_U^2,
-\end{align*}
-where $\delta := 1-\log_2\max\{3/2,(1/2+\alpha^4/(64L^4M^4))^{-1}\}>0$.
-\end{theorem}
-\begin{proof}
-The main idea of the following proof is to look at the variance (mean squared distance from the center) of different subsets of $Tu_1,\ldots, Tu_n$.
-By using the fact that the residual $r_i:=f-Au_i$ separates $Tu_{i+1},\ldots,Tu_n$ from $Tu_1,\ldots, Tu_i$ for all $1\leq i\leq n$, we will show that combining two disjoint subsets increases the variance by a factor that is slightly larger than two. 
-Moreover, the variance of subsets of the form $\{i,i+1\}$ is an upper bound for $\norm{u_{i+1}-u_i}_U^2$. Combining both observations allows us to iteratively combine two disjoint sets into larger ones until we reach the full set. This requires roughly $\log_2(n)$ iterations. Since the size grows by less than the factor of two per iteration, we get the result.
+Both estimates can be combined with the bi-Lipschitz property of $T$ to show~\eqref{eq:cea} with $C_{\rm C\'ea}=(LM/\alpha)^3$.
 
-
-Define $x_i := T u_i\in V$.
-
-    \textbf{Step 1:} For $I\subseteq \{1,\ldots,n\}$ define the variance
+\textbf{Separation:} To see~\eqref{eq:sep}, consider
     \begin{align*}
-        E_I : = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1}\sum_{i\in I}\lambda_i \norm{x_i- \mu_{I,\lambda}}_V^2\quad\text{with}\quad \mu_{I,\lambda}:=\sum_{i\in I} \lambda_i x_i.
-    \end{align*}
-    There holds
-    \begin{align}
-        E_I = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1}\Big(\sum_{i\in I}\lambda_i \norm{x_i}_V^2  - 2\sum_{i\in I}\lambda_i \dual{x_i}{\mu_{I,\lambda}}_V+\norm{\mu_{I,\lambda}}_V^2\Big) = \max_{0\leq \lambda_i\leq 1\atop \sum_{i\in I} \lambda_i = 1} \Big(\sum_{i\in I}\lambda_i \norm{x_i}_V^2  - \norm{\mu_{I,\lambda}}_V^2\Big). 
-    \end{align}
-    Given $I,I'\subseteq \{1,\ldots,n\}$ with $I\cap I' = \emptyset$ and corresponding maximizers $\lambda_I$ and $\lambda_{I'}$, there holds
-    \begin{align}\label{eq:Eest}
-    \begin{split}
-        E_{I\cup I'} &\geq  \frac12\Big(\sum_{i\in I}\lambda_{I,i} \norm{x_i}_V^2+\sum_{i\in I'}\lambda_{I',i} \norm{x_i}_V^2\Big)-\frac14\norm{\sum_{i\in I}\lambda_{I,i}x_i+\sum_{i\in I'}\lambda_{I',i}x_i}_V^2\\
-        &\geq  \frac12\Big(E_I + E_{I'}\Big)+\frac14\norm{\sum_{i\in I}\lambda_{I,i}x_i}_V^2+\frac14\norm{\sum_{i\in I'}\lambda_{I',i}x_i}_V^2
-        -\frac12 \dual{\sum_{i\in I}\lambda_{I,i}x_i}{\sum_{i\in I'}\lambda_{I',i}x_i}_V\\
-        &=
-        \frac12\Big(E_I + E_{I'}\Big)+\frac14\norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V^2.
-        \end{split}
-    \end{align}
-
-    \textbf{Step 2:}    
-    If $i<i'$ for all $i\in I$ and $i'\in I'$, there holds
-    \begin{align*}
-        \dual{Au_{\max I'}-Au_{\min I'}}{\mu_{I',\lambda_{I'}}-\mu_{I,\lambda_{I}}} &= 
-         \dual{Au_{\max I'}-Au_{\min I'}}{\mu_{I',\lambda_{I'}}-Tu_{\min I'}} \\
-         &= \sum_{i\in I'}\lambda_{I',i}\dual{Au_i-Au_{\min I'}}{Tu_i-Tu_{\min I'}} \\
+        \dual{Au_{\max J}-Au_{\min J}}{\mu_{J,\lambda}-v} &= 
+         \dual{Au_{\max J}-Au_{\min J}}{\mu_{J,\lambda}-Tu_{\min J}} \\
+         &= \sum_{j\in J}\lambda_{j}\dual{Au_j-Au_{\min J}}{Tu_j-Tu_{\min J}} \\
          &\geq 
-         \alpha\sum_{i\in I'} \lambda_{I',i}\norm{u_i-u_{\min I'}}_U^2\geq \alpha/M^2 E_{I'},
+         \alpha/M^2\sum_{j\in J} \lambda_{j}\norm{Tu_j-Tu_{\min J}}_V^2\geq \alpha/M^2 E_J,
          \end{align*}
     where the last inequality follows since the mean minimizes the squared distances. Cauchy-Schwartz yields
     \begin{align*}
-     L\norm{u_{\max I'}-u_{\min I'}}_{U} \norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V \geq \norm{Au_{\max I'}-Au_{\min I'}}_{V^\star}\norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}_V\geq \alpha/M^2 E_{I'}.
+     L\norm{u_{\max J}-u_{\min J}}_{U} \norm{\mu_{J,\lambda}-v}_V \geq \norm{Au_{\max J}-Au_{\min J}}_{V^\star}\norm{\mu_{J,\lambda}-v}_V\geq \alpha/M^2 E_{J}.
     \end{align*}
-    Moreover, we have for $i=\min I'$ and $j=\max I'$ that
+    Moreover, we have for $i=\min J$ and $j=\max J$ that
     \begin{align*}
-        E_{ I'}\geq \frac12\Big(\norm{Tu_i-(Tu_i+Tu_j)/2}_V^2+\norm{Tu_j-(Tu_i+Tu_j)/2}_V^2\Big)\geq\alpha^2/(4L^2) \norm{u_{\max I'}-u_{\min I'}}_{U}^2,
+        E_{ J}\geq \frac12\Big(\norm{Tu_i-(Tu_i+Tu_j)/2}_V^2+\norm{Tu_j-(Tu_i+Tu_j)/2}_V^2\Big)\geq\alpha^2/(4L^2) \norm{u_{\max J}-u_{\min J}}_{U}^2,
     \end{align*}
     where the second inequality follows by \eqref{eq:invLipschitz}
-    and hence
-    \begin{align*}
-        4L^4 \norm{\mu_{I,\lambda_I}-\mu_{I',\lambda_{I'}}}^2 \geq  \alpha^4/M^4 E_{I'}.
-    \end{align*}
-    Together with~\eqref{eq:Eest}, this shows for $c = \alpha^4/(16L^4M^4)$
-    \begin{align}\label{eq:quadest}
-        E_{I\cup I'}\geq \frac12\Big(E_I + E_{I'}\Big)+cE_{I'}.
-    \end{align}
-
-    \textbf{Step 3:}
-    If $E_{I'}\geq \frac12 E_I$, the above inequality~\eqref{eq:quadest} shows
-    \begin{align*}
-        E_{I\cup I'}\geq (\frac{1}{2}+\frac{c}{4})(E_I+E_{I'}).
-    \end{align*}
-    If $E_{I'}<\frac12 E_I$, we use $E_I \leq E_{I \cup I'}$ to also get $(E_I+E_{I'})\leq \frac32 E_I\leq \frac32 E_{I\cup I'}$.
-    Thus, in both cases we have 
-    \begin{align}\label{eq:reduction}
-    E_I+E_{I'}\leq qE_{I\cup I'}
-    \end{align}
-    for $q:=\max\{3/2,(1/2+c/4)^{-1}\}<2$.
-
-    \textbf{Step 4}: 
-    There holds for $k=\lfloor\log_2(n-1)\rfloor$ that
-    \begin{align*}
-        \max\Big\{\sum_{i=1}^{2^k} \norm{u_{i+1}-u_i}^2_U, \sum_{i=n-2^k}^{n-1} \norm{u_{i+1}-u_i}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
-    \end{align*}
-    Thus, without loss of generality, we may assume $n-1=2^k$. Moreover, there holds
-    \begin{align*}
-        \max\Big\{\sum_{j=1}^{(n-1)/2} \norm{u_{2j}-u_{2j-1}}^2_U, \sum_{j=1}^{(n-1)/2} \norm{u_{2j+1}-u_{2j}}^2_U\Big\}\geq \frac12 \sum_{i=1}^{n-1} \norm{u_{i+1}-u_i}^2_U.
-    \end{align*}
-    Without loss of generality, we assume that the first sum in the maximum above is the larger one and start with $I_j:= \{2j-1,2j\}$ for all $j=1,\ldots,(n-1)/2$. Using~\eqref{eq:reduction}, we may iteratively combine consecutive $I_j$ and $I_{j+1}$ to obtain
-    \begin{align*}
-        \sum_{j=1}^{(n-1)/2}E_{I_j}\leq q^{\log_2(n)} E_{\{1,\ldots,n\}}.
-    \end{align*}
-    Clearly, we have $E_{\{1,\ldots,n\}}\lesssim  \norm{u_n-u_1}_U^2$ and also $E_{I_j}\geq \frac14\norm{Tu_{2j}-Tu_{2j-1}}_V^2\geq \alpha^2/(4L^2)\norm{u_{2j}-u_{2j-1}}_U^2$, where we used~\eqref{eq:invLipschitz} for the last inequality. 
-    This and $q^{\log_2(n)} = n^{\log_2(q)}$ conclude the proof.
-\end{proof}
-
-
+    and hence separation~\eqref{eq:sep} with $C_{\rm sep}:=4L^4/(\alpha^4M^4)$.
 % By~\eqref{eq:pg-comparison} and the triangle inequality,
 % $D_{\ell,\ell+m}\le 2K\norm{u_{\ell+m}-u_\ell}_U$. Thus the preceding
 % estimate gives quasi-orthogonality with $b(m)\lesssim m/\sqrt{\log_2(m+1)}$.
