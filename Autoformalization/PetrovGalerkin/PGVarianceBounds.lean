@@ -10,9 +10,7 @@ import Mathlib.Tactic.Ring
 /-!
 # Endpoint bounds for Petrov–Galerkin variance
 
-The two-point lower bound in Step 2 and total-variance upper bound in Step 4
-of `sources/main.tex`, lines 204–207 and 243. Both use the approved nonempty
-variance carrier and the actual Galerkin/source hypotheses.
+Two-point lower bounds and total-variance upper bounds on nonempty index sets.
 -/
 
 public section

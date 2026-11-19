@@ -11,10 +11,8 @@ import Mathlib.Tactic.Positivity
 /-!
 # Conditional dyadic aggregation of consecutive pairs
 
-The finite combinatorics underlying Section 1, Step 4 of `sources/main.tex`.
-The interval energy is a parameter defined only on nonempty subintervals of
-`{1,...,n}`. Its reduction, monotonicity and pair estimates are explicit inputs
-of these intermediate implications; applications must establish all of them.
+The interval energy is defined on nonempty subintervals of `{1,...,n}`.
+Reduction, monotonicity and pair estimates imply a bound on consecutive increments.
 -/
 
 public section
@@ -258,7 +256,7 @@ theorem finite_energy_sum_le (n : ℕ) (hn : 1 ≤ n)
   simpa only [EI, Finset.Ico_add_one_right_eq_Icc] using h
 
 /-- The first and last windows cover all increments when their lengths overlap.
-This is the literal coverage step behind the source's first WLOG reduction. -/
+The two windows cover every consecutive pair. -/
 theorem sum_Ico_le_first_add_last (d : ℕ → ℝ) (n m : ℕ)
     (hd : ∀ i ∈ Finset.Ico 1 n, 0 ≤ d i) (hm : m ≤ n - 1)
     (hcover : n - 1 ≤ 2 * m) :
@@ -284,7 +282,7 @@ theorem sum_Ico_le_first_add_last (d : ℕ → ℝ) (n m : ℕ)
       intro i hi
       exact hd i (hreverse (Finset.mem_union_left _ (Finset.mem_inter.mp hi).1))
 
-/-- The precise first/last power-of-two window inequality from Step 4.
+/-- The first/last power-of-two window inequality.
 The separate aggregation theorem also covers `n = 1`, where this logarithmic
 window construction is unnecessary. -/
 theorem half_sum_le_max_dyadic_windows (d : ℕ → ℝ) (n : ℕ) (hn : 2 ≤ n)

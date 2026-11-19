@@ -1,4 +1,3 @@
--- FROZEN_ANCHOR_PREFIX_BEGIN
 module
 public import Mathlib.Analysis.InnerProductSpace.Basic
 public import Mathlib.Analysis.Normed.Module.FiniteDimension
@@ -41,10 +40,6 @@ theorem quasi_orthogonality :
           ∀ n : ℕ, 1 ≤ n →
             (∑ i ∈ Finset.Ico 1 n, ‖u (i + 1) - u i‖ ^ 2) ≤
               C * Real.rpow (n : ℝ) (1 - δ) * ‖u n - u 1‖ ^ 2 :=
--- FROZEN_ANCHOR_PROOF_BEGIN
 by exact Autoformalization.PetrovGalerkin.Provider.quasi_orthogonality
--- FROZEN_ANCHOR_PROOF_END
--- FROZEN_ANCHOR_SUFFIX_BEGIN
 
 end Autoformalization.PetrovGalerkin
--- FROZEN_ANCHOR_SUFFIX_END

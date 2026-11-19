@@ -11,10 +11,7 @@ import Mathlib.Tactic.Ring
 /-!
 # Inverse estimates for the discrete Petrov–Galerkin map
 
-These helpers establish the estimate and restricted bijectivity in
-`sources/main.tex`, lines 85–93 (`eq:invLipschitz`). The pointwise hypotheses
-are specializations of the source inequalities, not additional assumptions
-for the frozen well-posedness theorem. No inverse object is defined here.
+Inverse estimates and restricted bijectivity for discrete Petrov–Galerkin maps.
 -/
 
 public section

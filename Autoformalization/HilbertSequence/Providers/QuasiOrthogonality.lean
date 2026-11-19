@@ -8,9 +8,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Quasi-orthogonality for separated Hilbert-space sequences
 
-The exact Theorem 1 of the revised manuscript. The source Cea and separation
-assumptions supply every premise of the generic finite-energy aggregation.
-Truncated binary grouping handles every n directly, with witness 8*Ccea^2.
+Céa and convex-hull separation estimates imply quasi-orthogonality.
+Truncated binary grouping handles every positive length directly.
 -/
 
 public section

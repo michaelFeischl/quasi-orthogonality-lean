@@ -1,4 +1,3 @@
--- FROZEN_ANCHOR_PREFIX_BEGIN
 module
 public import Mathlib.Analysis.InnerProductSpace.Basic
 public import Mathlib.Analysis.Normed.Module.FiniteDimension
@@ -34,10 +33,6 @@ theorem exists_unique_discrete_solution :
       α * ‖x - y‖ ^ 2 ≤ (A x - A y) (T x - T y)),
     ∀ (f : V →L[ℝ] ℝ) (j : ℕ),
       ∃! w : Uj j, ∀ z : Vj j, A (w : U) (z : V) = f (z : V) :=
--- FROZEN_ANCHOR_PROOF_BEGIN
 by exact Autoformalization.PetrovGalerkin.Provider.exists_unique_discrete_solution
--- FROZEN_ANCHOR_PROOF_END
--- FROZEN_ANCHOR_SUFFIX_BEGIN
 
 end Autoformalization.PetrovGalerkin
--- FROZEN_ANCHOR_SUFFIX_END

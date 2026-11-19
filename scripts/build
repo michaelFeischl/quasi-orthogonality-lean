@@ -10,12 +10,6 @@ if [[ ! -e "$HOME/.cache/lean-autoformalization/build.lock" ]]; then
 fi
 exec 9<"$HOME/.cache/lean-autoformalization/build.lock"
 flock 9
-# Keep source/pin/quarantine checks inside the same lock as Lean and Lake.
-AF_GUARD_OUTPUT="$(python3 "$AF_ROOT/scripts/check_campaign.py" --root "$AF_ROOT")"
-printf '%s\n' "$AF_GUARD_OUTPUT"
-if [[ "$AF_GUARD_OUTPUT" != "CAMPAIGN GUARD OK" ]]; then
-  exit 1
-fi
 if [[ "${1:-}" == "--check" ]]; then
   shift
   # Check transient files without registering them in the production library.

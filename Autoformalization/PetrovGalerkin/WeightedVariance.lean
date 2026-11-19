@@ -6,8 +6,7 @@ import Mathlib.Tactic.Ring
 /-!
 # Finite weighted variance identities
 
-The real Hilbert-space algebra in Section 1, Step 1 of `sources/main.tex`.
-These helpers use the literal finite sums, without selecting a maximum value.
+Real Hilbert-space identities for finite weighted sums.
 -/
 
 public section

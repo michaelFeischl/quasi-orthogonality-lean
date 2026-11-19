@@ -11,11 +11,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Scalar reduction and the quasi-orthogonality exponent
 
-These arithmetic helpers implement the scalar part of `eq:reduction` and the
-parameter bounds in `thm:qo` (`sources/main.tex`, lines 213–228 and 162).
-The scalar reduction is conditional: the variance argument must separately
-establish its monotonicity and merging inequalities. No variance or
-quasi-orthogonality theorem is asserted here.
+Arithmetic estimates for the scalar reduction and quasi-orthogonality exponent.
+The reduction assumes monotonicity and merging inequalities.
 -/
 
 public section
@@ -92,7 +89,7 @@ theorem quasi_orthogonality_exponent_bounds (L M α : ℝ)
   obtain ⟨hlower, hupper⟩ := quasi_orthogonality_factor_bounds L M α hL hM hα
   exact logb_two_exponent_bounds _ hlower hupper
 
-/-- The change of base used at the end of the source proof (line 244). -/
+/-- Change of base for the quasi-orthogonality exponent. -/
 theorem rpow_logb_two_comm (q n : ℝ) (hq : 0 < q) (hn : 0 < n) :
     q ^ Real.logb 2 n = n ^ Real.logb 2 q := by
   rw [Real.rpow_def_of_pos hq, Real.rpow_def_of_pos hn, Real.logb, Real.logb]

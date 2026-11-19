@@ -10,10 +10,9 @@ import Mathlib.Tactic.Ring
 /-!
 # Discrete Petrov–Galerkin well-posedness
 
-This provider proves the exact approved proposition from `sources/main.tex`,
-lines 50–130. The discrete inverse is local to the proof. Restriction to the
-test space and the Riesz isometry transport the equation to a Lipschitz,
-strongly monotone Hilbert-space map.
+Restriction to the test space and the Riesz isometry transport the equation
+to a Lipschitz, strongly monotone Hilbert-space map. The discrete inverse
+is local to the proof.
 -/
 
 public section

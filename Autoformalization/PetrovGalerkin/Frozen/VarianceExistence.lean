@@ -1,4 +1,3 @@
--- FROZEN_ANCHOR_PREFIX_BEGIN
 module
 public import Mathlib.Analysis.InnerProductSpace.Basic
 public import Mathlib.Order.Interval.Finset.Nat
@@ -22,10 +21,6 @@ theorem exists_unique_maximal_variance :
           (∀ i ∈ I, 0 ≤ w i ∧ w i ≤ 1) →
           (∑ i ∈ I, w i) = 1 →
           (∑ i ∈ I, w i * ‖x i - ∑ j ∈ I, w j • x j‖ ^ 2) ≤ E) :=
--- FROZEN_ANCHOR_PROOF_BEGIN
 by exact Autoformalization.PetrovGalerkin.Provider.exists_unique_maximal_variance
--- FROZEN_ANCHOR_PROOF_END
--- FROZEN_ANCHOR_SUFFIX_BEGIN
 
 end Autoformalization.PetrovGalerkin
--- FROZEN_ANCHOR_SUFFIX_END

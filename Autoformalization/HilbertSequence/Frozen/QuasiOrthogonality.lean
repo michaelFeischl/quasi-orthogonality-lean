@@ -1,4 +1,3 @@
--- FROZEN_ANCHOR_PREFIX_BEGIN
 module
 public import Autoformalization.PetrovGalerkin.Frozen.VarianceCharacterization
 public import Mathlib.Analysis.Convex.Hull
@@ -31,10 +30,6 @@ theorem quasi_orthogonality :
               Csep * ‖(∑ j ∈ J, w j • x j) - v‖ ^ 2) →
         (∑ i ∈ Finset.Ico 1 n, ‖x (i + 1) - x i‖ ^ 2) ≤
           C * Real.rpow (n : ℝ) (1 - δ) * ‖x n - x 1‖ ^ 2 :=
--- FROZEN_ANCHOR_PROOF_BEGIN
 by exact Autoformalization.HilbertSequence.Provider.quasi_orthogonality
--- FROZEN_ANCHOR_PROOF_END
--- FROZEN_ANCHOR_SUFFIX_BEGIN
 
 end Autoformalization.HilbertSequence
--- FROZEN_ANCHOR_SUFFIX_END

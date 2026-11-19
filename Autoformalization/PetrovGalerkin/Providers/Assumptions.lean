@@ -7,9 +7,8 @@ import Mathlib.Tactic.Positivity
 /-!
 # Verification of the abstract sequence assumptions
 
-Section 2 of the revised `sources/main.tex`: the transformed solutions satisfy
-both checks with their explicit constants. The corrected separation coefficient
-is `4 L^4 M^4 / α^4`; no estimate is added to the standing source hypotheses.
+Transformed Galerkin solutions satisfy the Céa comparison and convex-hull
+separation estimates required for abstract quasi-orthogonality.
 -/
 
 public section

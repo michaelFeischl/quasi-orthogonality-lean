@@ -11,9 +11,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Variance estimates for separated Hilbert-space sequences
 
-The variance bound and ordered reduction in Theorem 1 of `sources/main.tex`,
-Section 1. The energies are the characterized maxima, and the only quantitative
-premises are the source's Cea estimate and convex-hull separation estimate.
+Variance bounds and ordered reduction for a Hilbert-space sequence satisfying
+Céa and convex-hull separation estimates. Energies are attained maximum variances.
 -/
 
 public section

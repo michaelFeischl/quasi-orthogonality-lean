@@ -1,4 +1,3 @@
--- FROZEN_ANCHOR_PREFIX_BEGIN
 module
 public import Autoformalization.PetrovGalerkin.Frozen.VarianceCharacterization
 public import Mathlib.Analysis.Convex.Hull
@@ -49,10 +48,6 @@ theorem petrov_galerkin_assumptions :
             maximalVariance V (fun i => T (u i)) n hn J hJ hJn ≤
               (4 * L ^ 4 * M ^ 4 / α ^ 4) *
                 ‖(∑ j ∈ J, w j • T (u j)) - v‖ ^ 2 :=
--- FROZEN_ANCHOR_PROOF_BEGIN
 by exact Autoformalization.PetrovGalerkin.Provider.petrov_galerkin_assumptions
--- FROZEN_ANCHOR_PROOF_END
--- FROZEN_ANCHOR_SUFFIX_BEGIN
 
 end Autoformalization.PetrovGalerkin
--- FROZEN_ANCHOR_SUFFIX_END

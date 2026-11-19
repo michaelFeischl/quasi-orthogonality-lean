@@ -7,9 +7,7 @@ import Mathlib.Tactic.Ring
 /-!
 # Scalar gain from weighted separation
 
-The conditional arithmetic step in Section 1, Step 2 of `sources/main.tex`,
-lines 202–215. Applications must separately prove the separation and endpoint
-variance estimates. This module asserts no maximum-variance theorem.
+Scalar arithmetic combining separation and endpoint variance estimates.
 -/
 
 public section

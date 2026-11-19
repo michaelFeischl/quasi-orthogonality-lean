@@ -13,8 +13,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Reduction for ordered Petrov–Galerkin variance sets
 
-The source estimates `eq:quadest` and `eq:reduction`, sources/main.tex191–228.
-All maximum, separation and endpoint premises are discharged inside these proofs.
+Reduction estimates for ordered sets, using maximum-variance,
+separation and endpoint bounds.
 -/
 
 public section
@@ -87,7 +87,7 @@ theorem maximalVariance_ordered_gain (n : ℕ) (hn : 1 ≤ n)
     hIn hJn hdis w v hw hv hws hvs hwe hve
   exact (add_le_add (le_refl _) hgain).trans hmerge
 
-/-- The two-case scalar argument gives the source reduction factor below two. -/
+/-- The two-case scalar argument gives a reduction factor below two. -/
 theorem maximalVariance_ordered_reduction (n : ℕ) (hn : 1 ≤ n)
     (I J : Finset ℕ) (hI : I.Nonempty) (hJ : J.Nonempty)
     (hIn : I ⊆ Finset.Icc 1 n) (hJn : J ⊆ Finset.Icc 1 n)

@@ -6,9 +6,8 @@ public import Autoformalization.PetrovGalerkin.WeightedMixture
 /-!
 # Merger of maximum variances
 
-The attained-maximum application in `eq:Eest`, sources/main.tex180–189.
-The two maximizing weights are source-local witnesses; their existence follows
-from the separately proved complete characterization.
+Merging maximum variances using maximizing weights supplied by the
+complete variance characterization.
 -/
 
 public section

@@ -13,14 +13,13 @@ import Mathlib.Tactic.Ring
 /-!
 # Petrov–Galerkin checks for the abstract sequence assumptions
 
-The transformed Céa comparison and convex separation in Section 2 of the revised
-`sources/main.tex`. The separation constant is the corrected `4 L^4 M^4 / α^4`.
+Céa comparisons and convex-hull separation for transformed Galerkin solutions.
 -/
 
 public section
 namespace Autoformalization.PetrovGalerkin
 
-/-- Four ordered transformed solutions satisfy the source Céa constant. -/
+/-- Four ordered transformed solutions satisfy the Céa estimate. -/
 theorem norm_image_sub_le_cea_cube_mul_norm_image_sub
     {U V : Type*}
     [NormedAddCommGroup U] [InnerProductSpace ℝ U] [CompleteSpace U]
@@ -104,7 +103,7 @@ theorem weighted_separation_of_mem (J : Finset ℕ) (w : ℕ → ℝ)
 include hL hM hα hT
 
 /-- Every maximizing variance mean is separated from the test space at the
- first index, with the corrected Section 2 constant. -/
+ first index, with an explicit separation bound. -/
 theorem maximalVariance_separation_of_mem (n : ℕ) (hn : 1 ≤ n)
     (J : Finset ℕ) (hJ : J.Nonempty) (hJn : J ⊆ Finset.Icc 1 n)
     (w : ℕ → ℝ) (hw : ∀ j ∈ J, 0 ≤ w j ∧ w j ≤ 1)

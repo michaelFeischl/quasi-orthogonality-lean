@@ -13,7 +13,6 @@ import Mathlib.Topology.Order.Compact
 
 The finite simplex is compact and the weighted variance is continuous. Its maximum
 extends to weights on the natural numbers; only the maximum value is unique.
-This quarantined provider implements the approved source anchor at main.tex:170–180.
 -/
 
 public section

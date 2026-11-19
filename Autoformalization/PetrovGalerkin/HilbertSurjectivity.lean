@@ -14,9 +14,8 @@ import Mathlib.Tactic.Abel
 /-!
 # Surjectivity of Lipschitz strongly monotone Hilbert maps
 
-The contraction argument in `sources/main.tex`, lines 109–130, after Riesz
-transport. This infrastructure result is independent of the Petrov–Galerkin
-transport and includes both the zero space and the zero contraction factor.
+A contraction argument proves surjectivity, including the zero space
+and the zero contraction factor.
 -/
 
 public section

@@ -7,8 +7,7 @@ import Mathlib.Tactic.Ring
 /-!
 # Weighted separation of ordered Galerkin index sets
 
-These literal finite-sum estimates implement Section 1, Step 2 of
-`sources/main.tex`, lines 191–210, before choosing maximizing weights.
+Finite-sum separation estimates for ordered Galerkin index sets.
 -/
 
 public section

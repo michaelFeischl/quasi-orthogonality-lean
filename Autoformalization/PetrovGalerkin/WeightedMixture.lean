@@ -8,8 +8,7 @@ import Mathlib.Tactic.Ring
 /-!
 # A half-weight mixture on disjoint finite sets
 
-The finite-sum algebra underlying `eq:Eest` in Section 1, Step 1 of
-`sources/main.tex`, lines 174–189. No maximum or maximizer is selected here.
+Finite-sum identities for a mixture of weights on disjoint index sets.
 -/
 
 public section

@@ -10,9 +10,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Uniform quasi-orthogonality
 
-Exact provider of Theorem 2, sources/main.tex157–245. Every conditional energy
-premise is supplied by the characterized variance and the Galerkin estimates.
-The explicit constant depends only on the three source constants.
+The characterized variance and Galerkin estimates supply the energy bounds.
+The resulting constant depends only on the Lipschitz and monotonicity constants.
 -/
 
 public section

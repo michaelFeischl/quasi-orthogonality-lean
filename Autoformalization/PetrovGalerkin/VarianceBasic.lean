@@ -8,8 +8,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Basic estimates for the attained maximum variance
 
-The consequences of the complete variance characterization used in Section 1,
-Steps 1–4 of `sources/main.tex`. All sets remain nonempty subsets of `{1,…,n}`.
+Consequences of the complete variance characterization on nonempty
+subsets of `{1,…,n}`.
 -/
 
 public section

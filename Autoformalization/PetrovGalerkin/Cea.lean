@@ -10,9 +10,8 @@ import Mathlib.Tactic.Ring
 /-!
 # Cea comparisons for nested Petrov–Galerkin solutions
 
-The two comparisons and their combination are the estimates in
-`sources/main.tex`, lines 144–155. The hypotheses use the source's local
-quantitative assumptions. No linearity or zero preservation of `T` is required.
+Two comparisons and their combination for nested Galerkin solutions.
+No linearity or zero preservation of the transformation is required.
 -/
 
 public section

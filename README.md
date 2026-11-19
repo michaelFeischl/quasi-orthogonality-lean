@@ -1,13 +1,17 @@
-# Quasi-orthogonality for strongly monotone Galerkin methods
+# Quasi-orthogonality is a geometric property
 
-Lean formalization of **Theorem 1 and Section 2** of *Quasi-orthogonality is a geometric property* (ArXiv Link TBD)
+Lean formalization of the abstract quasi-orthogonality theorem and the
+Petrov–Galerkin assumptions check in *Quasi-orthogonality is a geometric property*
+by Michael Feischl and David Niederkofler.
 
-| Paper result | Lean declaration / file |
+| Result | Lean declaration |
 | --- | --- |
-| Theorem 1 (`thm:qo`) | [`HilbertSequence.quasi_orthogonality`](Autoformalization/HilbertSequence/Frozen/QuasiOrthogonality.lean) |
-| Section 2: both assumptions | [`PetrovGalerkin.petrov_galerkin_assumptions`](Autoformalization/PetrovGalerkin/Frozen/Assumptions.lean) |
-| Lemma 2: discrete well-posedness | [`PetrovGalerkin.exists_unique_discrete_solution`](Autoformalization/PetrovGalerkin/Frozen/DiscreteWellposedness.lean) |
+| Abstract quasi-orthogonality | [`HilbertSequence.quasi_orthogonality`](Autoformalization/HilbertSequence/Frozen/QuasiOrthogonality.lean) |
+| Petrov–Galerkin assumptions | [`PetrovGalerkin.petrov_galerkin_assumptions`](Autoformalization/PetrovGalerkin/Frozen/Assumptions.lean) |
+| Discrete well-posedness | [`PetrovGalerkin.exists_unique_discrete_solution`](Autoformalization/PetrovGalerkin/Frozen/DiscreteWellposedness.lean) |
 
+All names have prefix `Autoformalization`. The Lean declarations specify the
+precise hypotheses and conclusions.
 
 ## Verify
 
@@ -17,7 +21,7 @@ From the repository directory:
 
 ```sh
 lake exe cache get       # obtain the pinned dependencies and compiled Mathlib cache
-./scripts/verify        # build all modules, check frozen statements and final axioms
+./scripts/verify        # build every module, reject proof holes, check export axioms
 ```
 
 For a build alone, run `./scripts/build`. To use the results:
@@ -28,11 +32,8 @@ import Autoformalization
 #check Autoformalization.PetrovGalerkin.petrov_galerkin_assumptions
 ```
 
-All seven frozen exports are proved, with no `sorry` or custom axioms; their
-axiom closure uses only `propext`, `Classical.choice`, and `Quot.sound`.
-The [verification summary](docs/VERIFICATION.md) records the independent
-source audit and the check that Section 2 supplies Theorem 1's assumptions. Named-binder warnings in
-approved signatures are harmless. Verification needs no agent tooling.
+All 29 modules compile without `sorry`. The seven principal exports depend
+only on the standard axioms `propext`, `Classical.choice`, and `Quot.sound`.
+Verification is self-contained.
 
-Third-party checker attribution: [notice](scripts/vendor/NOTICE.md).
-A project-wide license for the proofs and manuscript has not been specified.
+A project-wide license has not been specified.

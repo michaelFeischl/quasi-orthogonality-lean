@@ -1,24 +1,5 @@
 .lake/
 .venv/
-.logs/
+.scratch/
 __pycache__/
 *.pyc
-.scratch/
-
-# Local agent configuration, credentials, and editor files
-.agents/
-.codex/
-.aws/
-.env
-.env.*
-!.env.example
-*.pem
-*.key
-.DS_Store
-.idea/
-.vscode/
-
-# Local orchestration launchers, not required for verification
-/scripts/start
-/scripts/codex
-/prompts/
