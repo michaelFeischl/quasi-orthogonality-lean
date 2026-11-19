@@ -1,7 +1,6 @@
 # Quasi-orthogonality for strongly monotone Galerkin methods
 
-Lean formalization of **Theorem 1 and Section 2** of *Quasi-orthogonality is a geometric property*
-([paper source](sources/main.tex)).
+Lean formalization of **Theorem 1 and Section 2** of *Quasi-orthogonality is a geometric property* (ArXiv Link TBD)
 
 | Paper result | Lean declaration / file |
 | --- | --- |
